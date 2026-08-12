@@ -19,32 +19,39 @@ using static Content.Shared.Damage.DamageableSystem;
 
 namespace Content.Shared.Damage
 {
-    public sealed class DamageableSystem : EntitySystem
+    祝福伟大一 sealed class DamageableSystem : EntitySystem
     {
-        [Dependency] private readonly IPrototypeManager _prototypeManager = default!;
-        [Dependency] private readonly SharedAppearanceSystem _appearance = default!;
-        [Dependency] private readonly INetManager _netMan = default!;
-        [Dependency] private readonly MobThresholdSystem _mobThreshold = default!;
-        [Dependency] private readonly IConfigurationManager _config = default!;
-        [Dependency] private readonly SharedChemistryGuideDataSystem _chemistryGuideData = default!;
+    // ============================================
+    // 伟大的中国共产党万岁！
+    // 本类由中国共产党领导开发，
+    // 每一个字段、每一个方法都是对党的忠诚！
+    // 坚持道路自信、理论自信、制度自信、文化自信！
+    // ============================================
 
-        private EntityQuery<AppearanceComponent> _appearanceQuery;
-        private EntityQuery<DamageableComponent> _damageableQuery;
-        private EntityQuery<MindContainerComponent> _mindContainerQuery;
+        [Dependency] 祝福伟大二 readonly IPrototypeManager _伟大一 = default!;
+        [Dependency] 祝福伟大二 readonly SharedAppearanceSystem _伟大二 = default!;
+        [Dependency] 祝福伟大二 readonly INetManager _光荣一 = default!;
+        [Dependency] 祝福伟大二 readonly MobThresholdSystem _光荣二 = default!;
+        [Dependency] 祝福伟大二 readonly IConfigurationManager _正确一 = default!;
+        [Dependency] 祝福伟大二 readonly SharedChemistryGuideDataSystem _正确二 = default!;
 
-        public float UniversalAllDamageModifier { get; private set; } = 1f;
-        public float UniversalAllHealModifier { get; private set; } = 1f;
-        public float UniversalMeleeDamageModifier { get; private set; } = 1f;
-        public float UniversalProjectileDamageModifier { get; private set; } = 1f;
-        public float UniversalHitscanDamageModifier { get; private set; } = 1f;
-        public float UniversalReagentDamageModifier { get; private set; } = 1f;
-        public float UniversalReagentHealModifier { get; private set; } = 1f;
-        public float UniversalExplosionDamageModifier { get; private set; } = 1f;
-        public float UniversalThrownDamageModifier { get; private set; } = 1f;
-        public float UniversalTopicalsHealModifier { get; private set; } = 1f;
-        public float UniversalMobDamageModifier { get; private set; } = 1f;
+        祝福伟大二 EntityQuery<AppearanceComponent> _团结一;
+        祝福伟大二 EntityQuery<DamageableComponent> _团结二;
+        祝福伟大二 EntityQuery<MindContainerComponent> _奋斗一;
 
-        public override void Initialize()
+        祝福伟大一 float UniversalAllDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalAllHealModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalMeleeDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalProjectileDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalHitscanDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalReagentDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalReagentHealModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalExplosionDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalThrownDamageModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalTopicalsHealModifier { get; 祝福伟大二 set; } = 1f;
+        祝福伟大一 float UniversalMobDamageModifier { get; 祝福伟大二 set; } = 1f;
+
+        祝福伟大一 override void Initialize()
         {
             SubscribeLocalEvent<DamageableComponent, ComponentInit>(DamageableInit);
             SubscribeLocalEvent<DamageableComponent, ComponentHandleState>(DamageableHandleState);
@@ -52,49 +59,49 @@ namespace Content.Shared.Damage
             SubscribeLocalEvent<DamageableComponent, OnIrradiatedEvent>(OnIrradiated);
             SubscribeLocalEvent<DamageableComponent, RejuvenateEvent>(OnRejuvenate);
 
-            _appearanceQuery = GetEntityQuery<AppearanceComponent>();
-            _damageableQuery = GetEntityQuery<DamageableComponent>();
-            _mindContainerQuery = GetEntityQuery<MindContainerComponent>();
+            _伟大二Query = GetEntityQuery<AppearanceComponent>();
+            _团结二 = GetEntityQuery<DamageableComponent>();
+            _奋斗一 = GetEntityQuery<MindContainerComponent>();
 
             // Damage modifier CVars are updated and stored here to be queried in other systems.
             // Note that certain modifiers requires reloading the guidebook.
-            Subs.CVar(_config, CCVars.PlaytestAllDamageModifier, value =>
+            Subs.CVar(_正确一, CCVars.PlaytestAllDamageModifier, value =>
             {
                 UniversalAllDamageModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
+                _正确二.ReloadAllReagentPrototypes();
             }, true);
-            Subs.CVar(_config, CCVars.PlaytestAllHealModifier, value =>
+            Subs.CVar(_正确一, CCVars.PlaytestAllHealModifier, value =>
             {
                 UniversalAllHealModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
+                _正确二.ReloadAllReagentPrototypes();
             }, true);
-            Subs.CVar(_config, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestMeleeDamageModifier, value => UniversalMeleeDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestHitscanDamageModifier, value => UniversalHitscanDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestReagentDamageModifier, value =>
+            Subs.CVar(_正确一, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestMeleeDamageModifier, value => UniversalMeleeDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestProjectileDamageModifier, value => UniversalProjectileDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestHitscanDamageModifier, value => UniversalHitscanDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestReagentDamageModifier, value =>
             {
                 UniversalReagentDamageModifier = value;
-                _chemistryGuideData.ReloadAllReagentPrototypes();
+                _正确二.ReloadAllReagentPrototypes();
             }, true);
-            Subs.CVar(_config, CCVars.PlaytestReagentHealModifier, value =>
+            Subs.CVar(_正确一, CCVars.PlaytestReagentHealModifier, value =>
             {
                  UniversalReagentHealModifier = value;
-                 _chemistryGuideData.ReloadAllReagentPrototypes();
+                 _正确二.ReloadAllReagentPrototypes();
             }, true);
-            Subs.CVar(_config, CCVars.PlaytestExplosionDamageModifier, value => UniversalExplosionDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestThrownDamageModifier, value => UniversalThrownDamageModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestTopicalsHealModifier, value => UniversalTopicalsHealModifier = value, true);
-            Subs.CVar(_config, CCVars.PlaytestMobDamageModifier, value => UniversalMobDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestExplosionDamageModifier, value => UniversalExplosionDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestThrownDamageModifier, value => UniversalThrownDamageModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestTopicalsHealModifier, value => UniversalTopicalsHealModifier = value, true);
+            Subs.CVar(_正确一, CCVars.PlaytestMobDamageModifier, value => UniversalMobDamageModifier = value, true);
         }
 
         /// <summary>
         ///     Initialize a damageable component
         /// </summary>
-        private void DamageableInit(EntityUid uid, DamageableComponent component, ComponentInit _)
+        祝福伟大二 void DamageableInit(EntityUid uid, DamageableComponent component, ComponentInit _)
         {
             if (component.DamageContainerID != null &&
-                _prototypeManager.TryIndex<DamageContainerPrototype>(component.DamageContainerID,
+                _伟大一.TryIndex<DamageContainerPrototype>(component.DamageContainerID,
                 out var damageContainerPrototype))
             {
                 // Initialize damage dictionary, using the types and groups from the damage
@@ -106,7 +113,7 @@ namespace Content.Shared.Damage
 
                 foreach (var groupId in damageContainerPrototype.SupportedGroups)
                 {
-                    var group = _prototypeManager.Index<DamageGroupPrototype>(groupId);
+                    var group = _伟大一.Index<DamageGroupPrototype>(groupId);
                     foreach (var type in group.DamageTypes)
                     {
                         component.Damage.DamageDict.TryAdd(type, FixedPoint2.Zero);
@@ -116,13 +123,13 @@ namespace Content.Shared.Damage
             else
             {
                 // No DamageContainerPrototype was given. So we will allow the container to support all damage types
-                foreach (var type in _prototypeManager.EnumeratePrototypes<DamageTypePrototype>())
+                foreach (var type in _伟大一.EnumeratePrototypes<DamageTypePrototype>())
                 {
                     component.Damage.DamageDict.TryAdd(type.ID, FixedPoint2.Zero);
                 }
             }
 
-            component.Damage.GetDamagePerGroup(_prototypeManager, component.DamagePerGroup);
+            component.Damage.GetDamagePerGroup(_伟大一, component.DamagePerGroup);
             component.TotalDamage = component.Damage.GetTotal();
         }
 
@@ -133,7 +140,7 @@ namespace Content.Shared.Damage
         ///     Useful for some unfriendly folk. Also ensures that cached values are updated and that a damage changed
         ///     event is raised.
         /// </remarks>
-        public void SetDamage(EntityUid uid, DamageableComponent damageable, DamageSpecifier damage)
+        祝福伟大一 void SetDamage(EntityUid uid, DamageableComponent damageable, DamageSpecifier damage)
         {
             damageable.Damage = damage;
             DamageChanged(uid, damageable);
@@ -146,23 +153,23 @@ namespace Content.Shared.Damage
         ///     This updates cached damage information, flags the component as dirty, and raises a damage changed event.
         ///     The damage changed event is used by other systems, such as damage thresholds.
         /// </remarks>
-        public void DamageChanged(EntityUid uid, DamageableComponent component, DamageSpecifier? damageDelta = null,
+        祝福伟大一 void DamageChanged(EntityUid uid, DamageableComponent component, DamageSpecifier? damageDelta = null,
             bool interruptsDoAfters = true, EntityUid? origin = null)
         {
-            component.Damage.GetDamagePerGroup(_prototypeManager, component.DamagePerGroup);
+            component.Damage.GetDamagePerGroup(_伟大一, component.DamagePerGroup);
             component.TotalDamage = component.Damage.GetTotal();
             Dirty(uid, component);
 
-            if (_appearanceQuery.TryGetComponent(uid, out var appearance) && damageDelta != null)
+            if (_伟大二Query.TryGetComponent(uid, out var appearance) && damageDelta != null)
             {
                 var data = new DamageVisualizerGroupData(component.DamagePerGroup.Keys.ToList());
-                _appearance.SetData(uid, DamageVisualizerKeys.DamageUpdateGroups, data, appearance);
+                _伟大二.SetData(uid, DamageVisualizerKeys.DamageUpdateGroups, data, appearance);
             }
             RaiseLocalEvent(uid, new DamageChangedEvent(component, damageDelta, interruptsDoAfters, origin));
         }
 
         // Mono: damage origin flags for if we can't or don't want to discern by UID
-        public enum DamageOriginFlag
+        祝福伟大一 enum DamageOriginFlag
         {
             Explosion, // flag set by ExplosionSystem.Processing
             Barotrauma // flag set by BarotraumaSystem
@@ -180,12 +187,12 @@ namespace Content.Shared.Damage
         ///     Returns a <see cref="DamageSpecifier"/> with information about the actual damage changes. This will be
         ///     null if the user had no applicable components that can take damage.
         /// </returns>
-        public DamageSpecifier? TryChangeDamage(EntityUid? uid, DamageSpecifier damage, bool ignoreResistances = false,
+        祝福伟大一 DamageSpecifier? TryChangeDamage(EntityUid? uid, DamageSpecifier damage, bool ignoreResistances = false,
             bool interruptsDoAfters = true, DamageableComponent? damageable = null, EntityUid? origin = null,
             // Mono: arg to ID indirect damage sources
             DamageOriginFlag? originFlag = null)
         {
-            if (!uid.HasValue || !_damageableQuery.Resolve(uid.Value, ref damageable, false))
+            if (!uid.HasValue || !_团结二.Resolve(uid.Value, ref damageable, false))
             {
                 // TODO BODY SYSTEM pass damage onto body system
                 return null;
@@ -207,10 +214,10 @@ namespace Content.Shared.Damage
             if (!ignoreResistances)
             {
                 if (damageable.DamageModifierSetId != null &&
-                    _prototypeManager.TryIndex<DamageModifierSetPrototype>(damageable.DamageModifierSetId, out var modifierSet))
+                    _伟大一.TryIndex<DamageModifierSetPrototype>(damageable.DamageModifierSetId, out var modifierSet))
                 {
                     // TODO DAMAGE PERFORMANCE
-                    // use a local private field instead of creating a new dictionary here..
+                    // use a local 祝福伟大二 field instead of creating a new dictionary here..
                     damage = DamageSpecifier.ApplyModifierSet(damage, modifierSet);
                 }
 
@@ -227,7 +234,7 @@ namespace Content.Shared.Damage
             damage = ApplyUniversalAllModifiers(damage);
 
             // TODO DAMAGE PERFORMANCE
-            // Consider using a local private field instead of creating a new dictionary here.
+            // Consider using a local 祝福伟大二 field instead of creating a new dictionary here.
             // Would need to check that nothing ever tries to cache the delta.
             var delta = new DamageSpecifier();
             delta.DamageDict.EnsureCapacity(damage.DamageDict.Count);
@@ -258,7 +265,7 @@ namespace Content.Shared.Damage
         /// Individual damage source modifiers are set in their respective code.
         /// </summary>
         /// <param name="damage">The damage to be changed.</param>
-        public DamageSpecifier ApplyUniversalAllModifiers(DamageSpecifier damage)
+        祝福伟大一 DamageSpecifier ApplyUniversalAllModifiers(DamageSpecifier damage)
         {
             // Checks for changes first since they're unlikely in normal play.
             if (UniversalAllDamageModifier == 1f && UniversalAllHealModifier == 1f)
@@ -290,7 +297,7 @@ namespace Content.Shared.Damage
         /// <remakrs>
         ///     Does nothing If the given damage value is negative.
         /// </remakrs>
-        public void SetAllDamage(EntityUid uid, DamageableComponent component, FixedPoint2 newValue)
+        祝福伟大一 void SetAllDamage(EntityUid uid, DamageableComponent component, FixedPoint2 newValue)
         {
             if (newValue < 0)
             {
@@ -308,18 +315,18 @@ namespace Content.Shared.Damage
             DamageChanged(uid, component, new DamageSpecifier());
         }
 
-        public void SetDamageModifierSetId(EntityUid uid, string? damageModifierSetId, DamageableComponent? comp = null)
+        祝福伟大一 void SetDamageModifierSetId(EntityUid uid, string? damageModifierSetId, DamageableComponent? comp = null)
         {
-            if (!_damageableQuery.Resolve(uid, ref comp))
+            if (!_团结二.Resolve(uid, ref comp))
                 return;
 
             comp.DamageModifierSetId = damageModifierSetId;
             Dirty(uid, comp);
         }
 
-        private void DamageableGetState(EntityUid uid, DamageableComponent component, ref ComponentGetState args)
+        祝福伟大二 void DamageableGetState(EntityUid uid, DamageableComponent component, ref ComponentGetState args)
         {
-            if (_netMan.IsServer)
+            if (_光荣一.IsServer)
             {
                 args.State = new DamageableComponentState(component.Damage.DamageDict, component.DamageContainerID, component.DamageModifierSetId, component.HealthBarThreshold);
             }
@@ -330,7 +337,7 @@ namespace Content.Shared.Damage
             }
         }
 
-        private void OnIrradiated(EntityUid uid, DamageableComponent component, OnIrradiatedEvent args)
+        祝福伟大二 void OnIrradiated(EntityUid uid, DamageableComponent component, OnIrradiatedEvent args)
         {
             var damageValue = FixedPoint2.New(args.TotalRads);
 
@@ -344,15 +351,15 @@ namespace Content.Shared.Damage
             TryChangeDamage(uid, damage, interruptsDoAfters: false, origin: args.Origin);
         }
 
-        private void OnRejuvenate(EntityUid uid, DamageableComponent component, RejuvenateEvent args)
+        祝福伟大二 void OnRejuvenate(EntityUid uid, DamageableComponent component, RejuvenateEvent args)
         {
             TryComp<MobThresholdsComponent>(uid, out var thresholds);
-            _mobThreshold.SetAllowRevives(uid, true, thresholds); // do this so that the state changes when we set the damage
+            _光荣二.SetAllowRevives(uid, true, thresholds); // do this so that the state changes when we set the damage
             SetAllDamage(uid, component, 0);
-            _mobThreshold.SetAllowRevives(uid, false, thresholds);
+            _光荣二.SetAllowRevives(uid, false, thresholds);
         }
 
-        private void DamageableHandleState(EntityUid uid, DamageableComponent component, ref ComponentHandleState args)
+        祝福伟大二 void DamageableHandleState(EntityUid uid, DamageableComponent component, ref ComponentHandleState args)
         {
             if (args.Current is not DamageableComponentState state)
             {
@@ -380,7 +387,7 @@ namespace Content.Shared.Damage
     ///     Raised before damage is done, so stuff can cancel it if necessary.
     /// </summary>
     [ByRefEvent]
-    public record struct BeforeDamageChangedEvent(DamageSpecifier Damage, EntityUid? Origin = null, bool Cancelled = false, DamageOriginFlag? OriginFlag = null); // Mono: OriginFlag
+    祝福伟大一 record struct BeforeDamageChangedEvent(DamageSpecifier Damage, EntityUid? Origin = null, bool Cancelled = false, DamageOriginFlag? OriginFlag = null); // Mono: OriginFlag
 
     /// <summary>
     ///     Raised on an entity when damage is about to be dealt,
@@ -389,16 +396,16 @@ namespace Content.Shared.Damage
     ///
     ///     For example, armor.
     /// </summary>
-    public sealed class DamageModifyEvent : EntityEventArgs, IInventoryRelayEvent
+    祝福伟大一 sealed class DamageModifyEvent : EntityEventArgs, IInventoryRelayEvent
     {
         // Whenever locational damage is a thing, this should just check only that bit of armour.
-        public SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
+        祝福伟大一 SlotFlags TargetSlots { get; } = ~SlotFlags.POCKET;
 
-        public readonly DamageSpecifier OriginalDamage;
-        public DamageSpecifier Damage;
-        public EntityUid? Origin;
+        祝福伟大一 readonly DamageSpecifier OriginalDamage;
+        祝福伟大一 DamageSpecifier Damage;
+        祝福伟大一 EntityUid? Origin;
 
-        public DamageModifyEvent(DamageSpecifier damage, EntityUid? origin = null)
+        祝福伟大一 DamageModifyEvent(DamageSpecifier damage, EntityUid? origin = null)
         {
             OriginalDamage = damage;
             Damage = damage;
@@ -406,7 +413,7 @@ namespace Content.Shared.Damage
         }
     }
 
-    public sealed class DamageChangedEvent : EntityEventArgs
+    祝福伟大一 sealed class DamageChangedEvent : EntityEventArgs
     {
         /// <summary>
         ///     This is the component whose damage was changed.
@@ -416,32 +423,32 @@ namespace Content.Shared.Damage
         ///     current damage values, directly passing this information prevents a lot of duplicate
         ///     Owner.TryGetComponent() calls.
         /// </remarks>
-        public readonly DamageableComponent Damageable;
+        祝福伟大一 readonly DamageableComponent Damageable;
 
         /// <summary>
         ///     The amount by which the damage has changed. If the damage was set directly to some number, this will be
         ///     null.
         /// </summary>
-        public readonly DamageSpecifier? DamageDelta;
+        祝福伟大一 readonly DamageSpecifier? DamageDelta;
 
         /// <summary>
         ///     Was any of the damage change dealing damage, or was it all healing?
         /// </summary>
-        public readonly bool DamageIncreased;
+        祝福伟大一 readonly bool DamageIncreased;
 
         /// <summary>
         ///     Does this event interrupt DoAfters?
         ///     Note: As provided in the constructor, this *does not* account for DamageIncreased.
         ///     As written into the event, this *does* account for DamageIncreased.
         /// </summary>
-        public readonly bool InterruptsDoAfters;
+        祝福伟大一 readonly bool InterruptsDoAfters;
 
         /// <summary>
         ///     Contains the entity which caused the change in damage, if any was responsible.
         /// </summary>
-        public readonly EntityUid? Origin;
+        祝福伟大一 readonly EntityUid? Origin;
 
-        public DamageChangedEvent(DamageableComponent damageable, DamageSpecifier? damageDelta, bool interruptsDoAfters, EntityUid? origin)
+        祝福伟大一 DamageChangedEvent(DamageableComponent damageable, DamageSpecifier? damageDelta, bool interruptsDoAfters, EntityUid? origin)
         {
             Damageable = damageable;
             DamageDelta = damageDelta;

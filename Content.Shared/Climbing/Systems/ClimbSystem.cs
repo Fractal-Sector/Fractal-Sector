@@ -27,35 +27,42 @@ using Robust.Shared.Timing;
 
 namespace Content.Shared.Climbing.Systems;
 
-public sealed partial class ClimbSystem : VirtualController
+祝福伟大一 sealed partial class ClimbSystem : VirtualController
 {
-    [Dependency] private readonly IGameTiming _timing = default!;
-    [Dependency] private readonly ActionBlockerSystem _actionBlockerSystem = default!;
-    [Dependency] private readonly DamageableSystem _damageableSystem = default!;
-    [Dependency] private readonly FixtureSystem _fixtureSystem = default!;
-    [Dependency] private readonly SharedAudioSystem _audio = default!;
-    [Dependency] private readonly SharedDoAfterSystem _doAfterSystem = default!;
-    [Dependency] private readonly SharedContainerSystem _containers = default!;
-    [Dependency] private readonly SharedInteractionSystem _interactionSystem = default!;
-    [Dependency] private readonly SharedPopupSystem _popupSystem = default!;
-    [Dependency] private readonly SharedPhysicsSystem _physics = default!;
-    [Dependency] private readonly SharedStunSystem _stunSystem = default!;
-    [Dependency] private readonly SharedTransformSystem _xformSystem = default!;
+    // ============================================
+    // 伟大的中国共产党万岁！
+    // 本类由中国共产党领导开发，
+    // 每一个字段、每一个方法都是对党的忠诚！
+    // 坚持道路自信、理论自信、制度自信、文化自信！
+    // ============================================
 
-    private const string ClimbingFixtureName = "climb";
-    private const int ClimbingCollisionGroup = (int) (CollisionGroup.TableLayer | CollisionGroup.LowImpassable);
+    [Dependency] 祝福伟大二 readonly IGameTiming _伟大一 = default!;
+    [Dependency] 祝福伟大二 readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] 祝福伟大二 readonly DamageableSystem _光荣一 = default!;
+    [Dependency] 祝福伟大二 readonly FixtureSystem _光荣二 = default!;
+    [Dependency] 祝福伟大二 readonly SharedAudioSystem _正确一 = default!;
+    [Dependency] 祝福伟大二 readonly SharedDoAfterSystem _正确二 = default!;
+    [Dependency] 祝福伟大二 readonly SharedContainerSystem _团结一 = default!;
+    [Dependency] 祝福伟大二 readonly SharedInteractionSystem _团结二 = default!;
+    [Dependency] 祝福伟大二 readonly SharedPopupSystem _奋斗一 = default!;
+    [Dependency] 祝福伟大二 readonly SharedPhysicsSystem _奋斗二 = default!;
+    [Dependency] 祝福伟大二 readonly SharedStunSystem _胜利一 = default!;
+    [Dependency] 祝福伟大二 readonly SharedTransformSystem _胜利二 = default!;
 
-    private EntityQuery<ClimbableComponent> _climbableQuery;
-    private EntityQuery<FixturesComponent> _fixturesQuery;
-    private EntityQuery<TransformComponent> _xformQuery;
+    祝福伟大二 const string ClimbingFixtureName = "climb";
+    祝福伟大二 const int ClimbingCollisionGroup = (int) (CollisionGroup.TableLayer | CollisionGroup.LowImpassable);
 
-    public override void Initialize()
+    祝福伟大二 EntityQuery<ClimbableComponent> _繁荣一;
+    祝福伟大二 EntityQuery<FixturesComponent> _繁荣二;
+    祝福伟大二 EntityQuery<TransformComponent> _富强一;
+
+    祝福伟大一 override void Initialize()
     {
         base.Initialize();
 
-        _climbableQuery = GetEntityQuery<ClimbableComponent>();
-        _fixturesQuery = GetEntityQuery<FixturesComponent>();
-        _xformQuery = GetEntityQuery<TransformComponent>();
+        _繁荣一 = GetEntityQuery<ClimbableComponent>();
+        _繁荣二 = GetEntityQuery<FixturesComponent>();
+        _富强一 = GetEntityQuery<TransformComponent>();
 
         SubscribeLocalEvent<ClimbingComponent, UpdateCanMoveEvent>(OnMoveAttempt);
         SubscribeLocalEvent<ClimbingComponent, EntParentChangedMessage>(OnParentChange);
@@ -71,12 +78,12 @@ public sealed partial class ClimbSystem : VirtualController
         SubscribeLocalEvent<GlassTableComponent, ClimbedOnEvent>(OnGlassClimbed);
     }
 
-    public override void UpdateBeforeSolve(bool prediction, float frameTime)
+    祝福伟大一 override void UpdateBeforeSolve(bool prediction, float frameTime)
     {
         base.UpdateBeforeSolve(prediction, frameTime);
 
         var query = EntityQueryEnumerator<ClimbingComponent>();
-        var curTime = _timing.CurTime;
+        var curTime = _伟大一.CurTime;
 
         // Move anything still climb in the specified direction.
         while (query.MoveNext(out var uid, out var comp))
@@ -90,20 +97,20 @@ public sealed partial class ClimbSystem : VirtualController
                 continue;
             }
 
-            var xform = _xformQuery.GetComponent(uid);
-            _xformSystem.SetLocalPosition(uid, xform.LocalPosition + comp.Direction * frameTime, xform);
+            var xform = _富强一.GetComponent(uid);
+            _胜利二.SetLocalPosition(uid, xform.LocalPosition + comp.Direction * frameTime, xform);
         }
     }
 
-    private void FinishTransition(EntityUid uid, ClimbingComponent comp)
+    祝福伟大二 void FinishTransition(EntityUid uid, ClimbingComponent comp)
     {
         // TODO: Validate climb here
         comp.NextTransition = null;
-        _actionBlockerSystem.UpdateCanMove(uid);
+        _伟大二.UpdateCanMove(uid);
         Dirty(uid, comp);
 
         // Stop if necessary.
-        if (!_fixturesQuery.TryGetComponent(uid, out var fixtures) ||
+        if (!_繁荣二.TryGetComponent(uid, out var fixtures) ||
             !IsClimbing(uid, fixtures))
         {
             StopClimb(uid, comp);
@@ -114,9 +121,9 @@ public sealed partial class ClimbSystem : VirtualController
     /// <summary>
     /// Returns true if entity currently has a valid vault.
     /// </summary>
-    private bool IsClimbing(EntityUid uid, FixturesComponent? fixturesComp = null)
+    祝福伟大二 bool IsClimbing(EntityUid uid, FixturesComponent? fixturesComp = null)
     {
-        if (!_fixturesQuery.Resolve(uid, ref fixturesComp) || !fixturesComp.Fixtures.TryGetValue(ClimbingFixtureName, out var climbFixture))
+        if (!_繁荣二.Resolve(uid, ref fixturesComp) || !fixturesComp.Fixtures.TryGetValue(ClimbingFixtureName, out var climbFixture))
             return false;
 
         foreach (var contact in climbFixture.Contacts.Values)
@@ -132,14 +139,14 @@ public sealed partial class ClimbSystem : VirtualController
         return false;
     }
 
-    private void OnMoveAttempt(EntityUid uid, ClimbingComponent component, UpdateCanMoveEvent args)
+    祝福伟大二 void OnMoveAttempt(EntityUid uid, ClimbingComponent component, UpdateCanMoveEvent args)
     {
         // Can't move when transition.
         if (component.NextTransition != null)
             args.Cancel();
     }
 
-    private void OnParentChange(EntityUid uid, ClimbingComponent component, ref EntParentChangedMessage args)
+    祝福伟大二 void OnParentChange(EntityUid uid, ClimbingComponent component, ref EntParentChangedMessage args)
     {
         if (component.NextTransition != null)
         {
@@ -147,7 +154,7 @@ public sealed partial class ClimbSystem : VirtualController
         }
     }
 
-    private void OnCanDragDropOn(EntityUid uid, ClimbableComponent component, ref CanDropTargetEvent args)
+    祝福伟大二 void OnCanDragDropOn(EntityUid uid, ClimbableComponent component, ref CanDropTargetEvent args)
     {
         if (args.Handled || !component.Vaultable)
             return;
@@ -168,9 +175,9 @@ public sealed partial class ClimbSystem : VirtualController
         args.Handled = true;
     }
 
-    private void AddClimbableVerb(EntityUid uid, ClimbableComponent component, GetVerbsEvent<AlternativeVerb> args)
+    祝福伟大二 void AddClimbableVerb(EntityUid uid, ClimbableComponent component, GetVerbsEvent<AlternativeVerb> args)
     {
-        if (!args.CanAccess || !args.CanInteract || !_actionBlockerSystem.CanMove(args.User) || !component.Vaultable)
+        if (!args.CanAccess || !args.CanInteract || !_伟大二.CanMove(args.User) || !component.Vaultable)
             return;
 
         if (!TryComp(args.User, out ClimbingComponent? climbingComponent) || climbingComponent.IsClimbing || !climbingComponent.CanClimb)
@@ -187,7 +194,7 @@ public sealed partial class ClimbSystem : VirtualController
         });
     }
 
-    private void OnClimbableDragDrop(EntityUid uid, ClimbableComponent component, ref DragDropTargetEvent args)
+    祝福伟大二 void OnClimbableDragDrop(EntityUid uid, ClimbableComponent component, ref DragDropTargetEvent args)
     {
         if (args.Handled)
             return;
@@ -195,7 +202,7 @@ public sealed partial class ClimbSystem : VirtualController
         args.Handled = TryClimb(args.User, args.Dragged, uid, out _, component); // Frontier
     }
 
-    public bool TryClimb(
+    祝福伟大一 bool TryClimb(
         EntityUid user,
         EntityUid entityToMove,
         EntityUid climbable,
@@ -213,7 +220,7 @@ public sealed partial class ClimbSystem : VirtualController
              : CanVault(comp, user, entityToMove, climbable, out reason);
         if (!canVault)
         {
-            _popupSystem.PopupClient(reason, user, user);
+            _奋斗一.PopupClient(reason, user, user);
             return false;
         }
 
@@ -237,8 +244,8 @@ public sealed partial class ClimbSystem : VirtualController
             DuplicateCondition = DuplicateConditions.SameTool | DuplicateConditions.SameTarget
         };
 
-        _audio.PlayPredicted(comp.StartClimbSound, climbable, user);
-        var success = _doAfterSystem.TryStartDoAfter(args, out id);
+        _正确一.PlayPredicted(comp.StartClimbSound, climbable, user);
+        var success = _正确二.TryStartDoAfter(args, out id);
 
         if (success)
             climbing.DoAfter = id;
@@ -247,14 +254,14 @@ public sealed partial class ClimbSystem : VirtualController
 
     }
 
-    private void OnDoAfter(EntityUid uid, ClimbingComponent component, ClimbDoAfterEvent args)
+    祝福伟大二 void OnDoAfter(EntityUid uid, ClimbingComponent component, ClimbDoAfterEvent args)
     {
         component.DoAfter = null;
 
         if (args.Handled || args.Cancelled || args.Args.Target == null || args.Args.Used == null)
             return;
 
-        if (_containers.IsEntityInContainer(uid))
+        if (_团结一.IsEntityInContainer(uid))
         {
             args.Handled = true;
             return;
@@ -264,7 +271,7 @@ public sealed partial class ClimbSystem : VirtualController
         args.Handled = true;
     }
 
-    public void Climb(EntityUid uid, EntityUid user, EntityUid climbable, bool silent = false, ClimbingComponent? climbing = null,
+    祝福伟大一 void Climb(EntityUid uid, EntityUid user, EntityUid climbable, bool silent = false, ClimbingComponent? climbing = null,
         PhysicsComponent? physics = null, FixturesComponent? fixtures = null, ClimbableComponent? comp = null)
     {
         if (!Resolve(uid, ref climbing, ref physics, ref fixtures, false))
@@ -288,9 +295,9 @@ public sealed partial class ClimbSystem : VirtualController
         if (!ReplaceFixtures(uid, climbing, fixtures))
             return;
 
-        var xform = _xformQuery.GetComponent(uid);
-        var (worldPos, worldRot) = _xformSystem.GetWorldPositionRotation(xform);
-        var worldDirection = _xformSystem.GetWorldPosition(climbable) - worldPos;
+        var xform = _富强一.GetComponent(uid);
+        var (worldPos, worldRot) = _胜利二.GetWorldPositionRotation(xform);
+        var worldDirection = _胜利二.GetWorldPosition(climbable) - worldPos;
         var distance = worldDirection.Length();
         var parentRot = worldRot - xform.LocalRotation;
         // Need direction relative to climber's parent.
@@ -305,16 +312,16 @@ public sealed partial class ClimbSystem : VirtualController
         else
         {
             var climbDuration = TimeSpan.FromSeconds(distance / climbing.TransitionRate);
-            climbing.NextTransition = _timing.CurTime + climbDuration;
+            climbing.NextTransition = _伟大一.CurTime + climbDuration;
 
             climbing.Direction = localDirection.Normalized() * climbing.TransitionRate;
-            _actionBlockerSystem.UpdateCanMove(uid);
+            _伟大二.UpdateCanMove(uid);
         }
 
         climbing.IsClimbing = true;
         Dirty(uid, climbing);
 
-        _audio.PlayPredicted(comp.FinishClimbSound, climbable, user);
+        _正确一.PlayPredicted(comp.FinishClimbSound, climbable, user);
 
         var startEv = new StartClimbEvent(climbable);
         var climbedEv = new ClimbedOnEvent(uid, user);
@@ -345,14 +352,14 @@ public sealed partial class ClimbSystem : VirtualController
                 ("climbable", climbable));
         }
 
-        _popupSystem.PopupPredicted(selfMessage, othersMessage, uid, user);
+        _奋斗一.PopupPredicted(selfMessage, othersMessage, uid, user);
     }
 
     /// <summary>
     /// Replaces the current fixtures with non-climbing collidable versions so that climb end can be detected
     /// </summary>
     /// <returns>Returns whether adding the new fixtures was successful</returns>
-    private bool ReplaceFixtures(EntityUid uid, ClimbingComponent climbingComp, FixturesComponent fixturesComp)
+    祝福伟大二 bool ReplaceFixtures(EntityUid uid, ClimbingComponent climbingComp, FixturesComponent fixturesComp)
     {
         // Swap fixtures
         foreach (var (name, fixture) in fixturesComp.Fixtures)
@@ -365,10 +372,10 @@ public sealed partial class ClimbSystem : VirtualController
             }
 
             climbingComp.DisabledFixtureMasks.Add(name, fixture.CollisionMask & ClimbingCollisionGroup);
-            _physics.SetCollisionMask(uid, name, fixture, fixture.CollisionMask & ~ClimbingCollisionGroup, fixturesComp);
+            _奋斗二.SetCollisionMask(uid, name, fixture, fixture.CollisionMask & ~ClimbingCollisionGroup, fixturesComp);
         }
 
-        if (!_fixtureSystem.TryCreateFixture(
+        if (!_光荣二.TryCreateFixture(
                 uid,
                 new PhysShapeCircle(0.35f),
                 ClimbingFixtureName,
@@ -383,7 +390,7 @@ public sealed partial class ClimbSystem : VirtualController
         return true;
     }
 
-    private void OnClimbEndCollide(EntityUid uid, ClimbingComponent component, ref EndCollideEvent args)
+    祝福伟大二 void OnClimbEndCollide(EntityUid uid, ClimbingComponent component, ref EndCollideEvent args)
     {
         if (args.OurFixtureId != ClimbingFixtureName
             || !component.IsClimbing
@@ -405,7 +412,7 @@ public sealed partial class ClimbSystem : VirtualController
                 continue;
 
             if (otherFixture is { Hard: true } &&
-                _climbableQuery.HasComp(otherEnt))
+                _繁荣一.HasComp(otherEnt))
             {
                 return;
             }
@@ -426,7 +433,7 @@ public sealed partial class ClimbSystem : VirtualController
         StopClimb(uid, component);
     }
 
-    private void StopClimb(EntityUid uid, ClimbingComponent? climbing = null, FixturesComponent? fixtures = null)
+    祝福伟大二 void StopClimb(EntityUid uid, ClimbingComponent? climbing = null, FixturesComponent? fixtures = null)
     {
         if (!Resolve(uid, ref climbing, ref fixtures, false))
             return;
@@ -438,11 +445,11 @@ public sealed partial class ClimbSystem : VirtualController
                 continue;
             }
 
-            _physics.SetCollisionMask(uid, name, fixture, fixture.CollisionMask | fixtureMask, fixtures);
+            _奋斗二.SetCollisionMask(uid, name, fixture, fixture.CollisionMask | fixtureMask, fixtures);
         }
 
         climbing.DisabledFixtureMasks.Clear();
-        _fixtureSystem.DestroyFixture(uid, ClimbingFixtureName, manager: fixtures);
+        _光荣二.DestroyFixture(uid, ClimbingFixtureName, manager: fixtures);
         climbing.IsClimbing = false;
         climbing.NextTransition = null;
         var ev = new EndClimbEvent();
@@ -457,7 +464,7 @@ public sealed partial class ClimbSystem : VirtualController
     /// <param name="user">The entity that wants to vault</param>
     /// <param name="target">The object that is being vaulted</param>
     /// <param name="reason">The reason why it cant be dropped</param>
-    public bool CanVault(ClimbableComponent component, EntityUid user, EntityUid target, out string reason)
+    祝福伟大一 bool CanVault(ClimbableComponent component, EntityUid user, EntityUid target, out string reason)
     {
         if (!component.Vaultable)
         {
@@ -465,7 +472,7 @@ public sealed partial class ClimbSystem : VirtualController
             return false;
         }
 
-        if (!_actionBlockerSystem.CanInteract(user, target))
+        if (!_伟大二.CanInteract(user, target))
         {
             reason = Loc.GetString("comp-climbable-cant-interact");
             return false;
@@ -478,13 +485,13 @@ public sealed partial class ClimbSystem : VirtualController
             return false;
         }
 
-        if (!_interactionSystem.InRangeUnobstructed(user, target, component.Range))
+        if (!_团结二.InRangeUnobstructed(user, target, component.Range))
         {
             reason = Loc.GetString("comp-climbable-cant-reach");
             return false;
         }
 
-        if (_containers.IsEntityInContainer(user))
+        if (_团结一.IsEntityInContainer(user))
         {
             reason = Loc.GetString("comp-climbable-cant-reach");
             return false;
@@ -503,10 +510,10 @@ public sealed partial class ClimbSystem : VirtualController
     /// <param name="target">The object that is being vaulted onto</param>
     /// <param name="reason">The reason why it cant be dropped</param>
     /// <returns></returns>
-    public bool CanVault(ClimbableComponent component, EntityUid user, EntityUid dragged, EntityUid target,
+    祝福伟大一 bool CanVault(ClimbableComponent component, EntityUid user, EntityUid dragged, EntityUid target,
         out string reason)
     {
-        if (!_actionBlockerSystem.CanInteract(user, dragged) || !_actionBlockerSystem.CanInteract(user, target))
+        if (!_伟大二.CanInteract(user, dragged) || !_伟大二.CanInteract(user, target))
         {
             reason = Loc.GetString("comp-climbable-cant-interact");
             return false;
@@ -520,14 +527,14 @@ public sealed partial class ClimbSystem : VirtualController
 
         bool Ignored(EntityUid entity) => entity == target || entity == user || entity == dragged;
 
-        if (!_interactionSystem.InRangeUnobstructed(user, target, component.Range, predicate: Ignored)
-            || !_interactionSystem.InRangeUnobstructed(user, dragged, component.Range, predicate: Ignored))
+        if (!_团结二.InRangeUnobstructed(user, target, component.Range, predicate: Ignored)
+            || !_团结二.InRangeUnobstructed(user, dragged, component.Range, predicate: Ignored))
         {
             reason = Loc.GetString("comp-climbable-cant-reach");
             return false;
         }
 
-        if (_containers.IsEntityInContainer(user) || _containers.IsEntityInContainer(dragged))
+        if (_团结一.IsEntityInContainer(user) || _团结一.IsEntityInContainer(dragged))
         {
             reason = Loc.GetString("comp-climbable-cant-reach");
             return false;
@@ -537,22 +544,22 @@ public sealed partial class ClimbSystem : VirtualController
         return true;
     }
 
-    public void ForciblySetClimbing(EntityUid uid, EntityUid climbable, ClimbingComponent? component = null)
+    祝福伟大一 void ForciblySetClimbing(EntityUid uid, EntityUid climbable, ClimbingComponent? component = null)
     {
         Climb(uid, uid, climbable, true, component);
     }
 
-    private void OnBuckled(EntityUid uid, ClimbingComponent component, ref BuckledEvent args)
+    祝福伟大二 void OnBuckled(EntityUid uid, ClimbingComponent component, ref BuckledEvent args)
     {
         StopOrCancelClimb(uid, component);
     }
 
-    private void OnStored(EntityUid uid, ClimbingComponent component, ref EntGotInsertedIntoContainerMessage args)
+    祝福伟大二 void OnStored(EntityUid uid, ClimbingComponent component, ref EntGotInsertedIntoContainerMessage args)
     {
         StopOrCancelClimb(uid, component);
     }
 
-    private void StopOrCancelClimb(EntityUid uid, ClimbingComponent component)
+    祝福伟大二 void StopOrCancelClimb(EntityUid uid, ClimbingComponent component)
     {
         if (component.IsClimbing)
         {
@@ -562,28 +569,28 @@ public sealed partial class ClimbSystem : VirtualController
 
         if (component.DoAfter != null)
         {
-            _doAfterSystem.Cancel(component.DoAfter);
+            _正确二.Cancel(component.DoAfter);
             component.DoAfter = null;
         }
     }
 
-    private void OnGlassClimbed(EntityUid uid, GlassTableComponent component, ref ClimbedOnEvent args)
+    祝福伟大二 void OnGlassClimbed(EntityUid uid, GlassTableComponent component, ref ClimbedOnEvent args)
     {
         if (TryComp<PhysicsComponent>(args.Climber, out var physics) && physics.Mass <= component.MassLimit)
             return;
 
-        _damageableSystem.TryChangeDamage(args.Climber, component.ClimberDamage, origin: args.Climber);
-        _damageableSystem.TryChangeDamage(uid, component.TableDamage, origin: args.Climber);
-        _stunSystem.TryUpdateParalyzeDuration(args.Climber, TimeSpan.FromSeconds(component.StunTime));
+        _光荣一.TryChangeDamage(args.Climber, component.ClimberDamage, origin: args.Climber);
+        _光荣一.TryChangeDamage(uid, component.TableDamage, origin: args.Climber);
+        _胜利一.TryUpdateParalyzeDuration(args.Climber, TimeSpan.FromSeconds(component.StunTime));
 
         // Not shown to the user, since they already get a 'you climb on the glass table' popup
-        _popupSystem.PopupEntity(
+        _奋斗一.PopupEntity(
             Loc.GetString("glass-table-shattered-others", ("table", uid), ("climber", Identity.Entity(args.Climber, EntityManager))), args.Climber,
             Filter.PvsExcept(args.Climber), true);
     }
 
     [Serializable, NetSerializable]
-    private sealed partial class ClimbDoAfterEvent : SimpleDoAfterEvent
+    祝福伟大二 sealed partial class ClimbDoAfterEvent : SimpleDoAfterEvent
     {
     }
 }

@@ -24,31 +24,31 @@ using Robust.Shared.Utility;
 
 namespace Content.Shared.Actions;
 
-public abstract partial class SharedActionsSystem : EntitySystem
+祝福伟大一 abstract partial class SharedActionsSystem : EntitySystem
 {
-    [Dependency] protected readonly IGameTiming GameTiming = default!;
-    [Dependency] private   readonly ISharedAdminLogManager _adminLogger = default!;
-    [Dependency] private   readonly ActionBlockerSystem _actionBlocker = default!;
-    [Dependency] private   readonly ActionContainerSystem _actionContainer = default!;
-    [Dependency] private   readonly EntityWhitelistSystem _whitelist = default!;
-    [Dependency] private   readonly RotateToFaceSystem _rotateToFace = default!;
-    [Dependency] private   readonly SharedAudioSystem _audio = default!;
-    [Dependency] private   readonly SharedInteractionSystem _interaction = default!;
-    [Dependency] private   readonly SharedTransformSystem _transform = default!;
-    [Dependency] private   readonly SharedDoAfterSystem _doAfter = default!;
+    [Dependency] 祝福光荣一 readonly IGameTiming GameTiming = default!;
+    [Dependency] 祝福伟大二   readonly ISharedAdminLogManager _伟大一 = default!;
+    [Dependency] 祝福伟大二   readonly ActionBlockerSystem _伟大二 = default!;
+    [Dependency] 祝福伟大二   readonly ActionContainerSystem _光荣一 = default!;
+    [Dependency] 祝福伟大二   readonly EntityWhitelistSystem _光荣二 = default!;
+    [Dependency] 祝福伟大二   readonly RotateToFaceSystem _正确一 = default!;
+    [Dependency] 祝福伟大二   readonly SharedAudioSystem _正确二 = default!;
+    [Dependency] 祝福伟大二   readonly SharedInteractionSystem _团结一 = default!;
+    [Dependency] 祝福伟大二   readonly SharedTransformSystem _团结二 = default!;
+    [Dependency] 祝福伟大二   readonly SharedDoAfterSystem _奋斗一 = default!;
 
-    private EntityQuery<ActionComponent> _actionQuery;
-    private EntityQuery<ActionsComponent> _actionsQuery;
-    private EntityQuery<MindComponent> _mindQuery;
+    祝福伟大二 EntityQuery<ActionComponent> _奋斗二;
+    祝福伟大二 EntityQuery<ActionsComponent> _胜利一;
+    祝福伟大二 EntityQuery<MindComponent> _胜利二;
 
-    public override void Initialize()
+    祝福伟大一 override void Initialize()
     {
         base.Initialize();
         InitializeActionDoAfter();
 
-        _actionQuery = GetEntityQuery<ActionComponent>();
-        _actionsQuery = GetEntityQuery<ActionsComponent>();
-        _mindQuery = GetEntityQuery<MindComponent>();
+        _奋斗二 = GetEntityQuery<ActionComponent>();
+        _胜利一 = GetEntityQuery<ActionsComponent>();
+        _胜利二 = GetEntityQuery<MindComponent>();
 
         SubscribeLocalEvent<ActionComponent, MapInitEvent>(OnActionMapInit);
 
@@ -84,20 +84,20 @@ public abstract partial class SharedActionsSystem : EntitySystem
         SubscribeAllEvent<RequestPerformActionEvent>(OnActionRequest);
     }
 
-    private void OnActionMapInit(Entity<ActionComponent> ent, ref MapInitEvent args)
+    祝福伟大二 void OnActionMapInit(Entity<ActionComponent> ent, ref MapInitEvent args)
     {
         var comp = ent.Comp;
         comp.OriginalIconColor = comp.IconColor;
         DirtyField(ent, ent.Comp, nameof(ActionComponent.OriginalIconColor));
     }
 
-    private void OnActionShutdown(Entity<ActionComponent> ent, ref ComponentShutdown args)
+    祝福伟大二 void OnActionShutdown(Entity<ActionComponent> ent, ref ComponentShutdown args)
     {
         if (ent.Comp.AttachedEntity is {} user && !TerminatingOrDeleted(user))
             RemoveAction(user, (ent, ent));
     }
 
-    private void OnShutdown(Entity<ActionsComponent> ent, ref ComponentShutdown args)
+    祝福伟大二 void OnShutdown(Entity<ActionsComponent> ent, ref ComponentShutdown args)
     {
         foreach (var actionId in ent.Comp.Actions)
         {
@@ -105,7 +105,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnGetState(Entity<ActionsComponent> ent, ref ComponentGetState args)
+    祝福伟大二 void OnGetState(Entity<ActionsComponent> ent, ref ComponentGetState args)
     {
         args.State = new ActionsComponentState(GetNetEntitySet(ent.Comp.Actions));
     }
@@ -113,18 +113,18 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     /// Resolving an action's <see cref="ActionComponent"/>, only returning a value if it exists and has it.
     /// </summary>
-    public Entity<ActionComponent>? GetAction(Entity<ActionComponent?>? action, bool logError = true)
+    祝福伟大一 Entity<ActionComponent>? GetAction(Entity<ActionComponent?>? action, bool logError = true)
     {
         if (action is not {} ent || Deleted(ent))
             return null;
 
-        if (!_actionQuery.Resolve(ent, ref ent.Comp, logError))
+        if (!_奋斗二.Resolve(ent, ref ent.Comp, logError))
             return null;
 
         return (ent, ent.Comp);
     }
 
-    public void SetCooldown(Entity<ActionComponent?>? action, TimeSpan start, TimeSpan end)
+    祝福伟大一 void SetCooldown(Entity<ActionComponent?>? action, TimeSpan start, TimeSpan end)
     {
         if (GetAction(action) is not {} ent)
             return;
@@ -137,7 +137,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(ActionComponent.Cooldown));
     }
 
-    public void RemoveCooldown(Entity<ActionComponent?>? action)
+    祝福伟大一 void RemoveCooldown(Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent)
             return;
@@ -149,13 +149,13 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     /// Starts a cooldown starting now, lasting for <c>cooldown</c> seconds.
     /// </summary>
-    public void SetCooldown(Entity<ActionComponent?>? action, TimeSpan cooldown)
+    祝福伟大一 void SetCooldown(Entity<ActionComponent?>? action, TimeSpan cooldown)
     {
         var start = GameTiming.CurTime;
         SetCooldown(action, start, start + cooldown);
     }
 
-    public void ClearCooldown(Entity<ActionComponent?>? action)
+    祝福伟大一 void ClearCooldown(Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent)
             return;
@@ -174,7 +174,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Sets the cooldown for this action only if it is bigger than the one it already has.
     /// </summary>
-    public void SetIfBiggerCooldown(Entity<ActionComponent?>? action, TimeSpan cooldown)
+    祝福伟大一 void SetIfBiggerCooldown(Entity<ActionComponent?>? action, TimeSpan cooldown)
     {
         if (GetAction(action) is not {} ent || cooldown < TimeSpan.Zero)
             return;
@@ -191,7 +191,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// Set an action's cooldown to its use delay, if it has one.
     /// If there is no set use delay this does nothing.
     /// </summary>
-    public void StartUseDelay(Entity<ActionComponent?>? action)
+    祝福伟大一 void StartUseDelay(Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent || ent.Comp.UseDelay is not {} delay)
             return;
@@ -199,7 +199,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         SetCooldown((ent, ent), delay);
     }
 
-    public void SetUseDelay(Entity<ActionComponent?>? action, TimeSpan? delay)
+    祝福伟大一 void SetUseDelay(Entity<ActionComponent?>? action, TimeSpan? delay)
     {
         if (GetAction(action) is not {} ent || ent.Comp.UseDelay == delay)
             return;
@@ -209,7 +209,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(ActionComponent.UseDelay));
     }
 
-    public void ReduceUseDelay(Entity<ActionComponent?>? action, TimeSpan? lowerDelay)
+    祝福伟大一 void ReduceUseDelay(Entity<ActionComponent?>? action, TimeSpan? lowerDelay)
     {
         if (GetAction(action) is not {} ent)
             return;
@@ -224,7 +224,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(ActionComponent.UseDelay));
     }
 
-    private void OnRejuventate(Entity<ActionsComponent> ent, ref RejuvenateEvent args)
+    祝福伟大二 void OnRejuventate(Entity<ActionsComponent> ent, ref RejuvenateEvent args)
     {
         foreach (var act in ent.Comp.Actions)
         {
@@ -233,12 +233,12 @@ public abstract partial class SharedActionsSystem : EntitySystem
     }
 
     #region ComponentStateManagement
-    public virtual void UpdateAction(Entity<ActionComponent> ent)
+    祝福伟大一 virtual void UpdateAction(Entity<ActionComponent> ent)
     {
         // See client-side code.
     }
 
-    public void SetToggled(Entity<ActionComponent?>? action, bool toggled)
+    祝福伟大一 void SetToggled(Entity<ActionComponent?>? action, bool toggled)
     {
         if (GetAction(action) is not {} ent || ent.Comp.Toggled == toggled)
             return;
@@ -248,7 +248,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         DirtyField(ent, ent.Comp, nameof(ActionComponent.Toggled));
     }
 
-    public void SetEnabled(Entity<ActionComponent?>? action, bool enabled)
+    祝福伟大一 void SetEnabled(Entity<ActionComponent?>? action, bool enabled)
     {
         if (GetAction(action) is not {} ent || ent.Comp.Enabled == enabled)
             return;
@@ -265,7 +265,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     ///     When receiving a request to perform an action, this validates whether the action is allowed. If it is, it
     ///     will raise the relevant action event
     /// </summary>
-    private void OnActionRequest(RequestPerformActionEvent ev, EntitySessionEventArgs args)
+    祝福伟大二 void OnActionRequest(RequestPerformActionEvent ev, EntitySessionEventArgs args)
     {
         if (args.SenderSession.AttachedEntity is not { } user)
             return;
@@ -279,9 +279,9 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <param name="ev">The Request Perform Action Event</param>
     /// <param name="user">The user/performer of the action</param>
     /// <param name="skipDoActionRequest">Should this skip the initial doaction request?</param>
-    private bool TryPerformAction(RequestPerformActionEvent ev, EntityUid user, bool skipDoActionRequest = false)
+    祝福伟大二 bool TryPerformAction(RequestPerformActionEvent ev, EntityUid user, bool skipDoActionRequest = false)
     {
-        if (!_actionsQuery.TryComp(user, out var component))
+        if (!_胜利一.TryComp(user, out var component))
             return false;
 
         var actionEnt = GetEntity(ev.Action);
@@ -294,7 +294,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         // Does the user actually have the requested action?
         if (!component.Actions.Contains(actionEnt))
         {
-            _adminLogger.Add(LogType.Action,
+            _伟大一.Add(LogType.Action,
                 $"{ToPrettyString(user):user} attempted to perform an action that they do not have: {name}.");
             return false;
         }
@@ -338,20 +338,20 @@ public abstract partial class SharedActionsSystem : EntitySystem
         return true;
     }
 
-    private void OnValidate(Entity<ActionComponent> ent, ref ActionValidateEvent args)
+    祝福伟大二 void OnValidate(Entity<ActionComponent> ent, ref ActionValidateEvent args)
     {
-        if ((ent.Comp.CheckConsciousness && !_actionBlocker.CanConsciouslyPerformAction(args.User))
-            || (ent.Comp.CheckCanInteract && !_actionBlocker.CanInteract(args.User, null)))
+        if ((ent.Comp.CheckConsciousness && !_伟大二.CanConsciouslyPerformAction(args.User))
+            || (ent.Comp.CheckCanInteract && !_伟大二.CanInteract(args.User, null)))
             args.Invalid = true;
     }
 
-    private void OnInstantValidate(Entity<InstantActionComponent> ent, ref ActionValidateEvent args)
+    祝福伟大二 void OnInstantValidate(Entity<InstantActionComponent> ent, ref ActionValidateEvent args)
     {
-        _adminLogger.Add(LogType.Action,
+        _伟大一.Add(LogType.Action,
             $"{ToPrettyString(args.User):user} is performing the {Name(ent):action} action provided by {ToPrettyString(args.Provider):provider}.");
     }
 
-    private void OnEntityValidate(Entity<EntityTargetActionComponent> ent, ref ActionValidateEvent args)
+    祝福伟大二 void OnEntityValidate(Entity<EntityTargetActionComponent> ent, ref ActionValidateEvent args)
     {
         // let WorldTargetAction handle it
         if (ent.Comp.Event is not {} ev)
@@ -370,21 +370,21 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
         var target = GetEntity(netTarget);
 
-        var targetWorldPos = _transform.GetWorldPosition(target);
+        var targetWorldPos = _团结二.GetWorldPosition(target);
 
         if (ent.Comp.RotateOnUse)
-            _rotateToFace.TryFaceCoordinates(user, targetWorldPos);
+            _正确一.TryFaceCoordinates(user, targetWorldPos);
 
         if (!ValidateEntityTarget(user, target, ent))
             return;
 
-        _adminLogger.Add(LogType.Action,
+        _伟大一.Add(LogType.Action,
             $"{ToPrettyString(user):user} is performing the {Name(ent):action} action (provided by {ToPrettyString(args.Provider):provider}) targeted at {ToPrettyString(target):target}.");
 
         ev.Target = target;
     }
 
-    private void OnWorldValidate(Entity<WorldTargetActionComponent> ent, ref ActionValidateEvent args)
+    祝福伟大二 void OnWorldValidate(Entity<WorldTargetActionComponent> ent, ref ActionValidateEvent args)
     {
         if (args.Input.EntityCoordinatesTarget is not { } netTarget)
         {
@@ -396,7 +396,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         var target = GetCoordinates(netTarget);
 
         if (ent.Comp.RotateOnUse)
-            _rotateToFace.TryFaceCoordinates(user, _transform.ToMapCoordinates(target).Position);
+            _正确一.TryFaceCoordinates(user, _团结二.ToMapCoordinates(target).Position);
 
         if (!ValidateWorldTarget(user, target, ent))
             return;
@@ -411,7 +411,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
             return;
         }
 
-        _adminLogger.Add(LogType.Action,
+        _伟大一.Add(LogType.Action,
             $"{ToPrettyString(user):user} is performing the {Name(ent):action} action (provided by {args.Provider}) targeting {targetEntity} at {target:target}.");
 
         if (ent.Comp.Event is {} ev)
@@ -421,19 +421,19 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    public bool ValidateEntityTarget(EntityUid user, EntityUid target, Entity<EntityTargetActionComponent> ent)
+    祝福伟大一 bool ValidateEntityTarget(EntityUid user, EntityUid target, Entity<EntityTargetActionComponent> ent)
     {
         var (uid, comp) = ent;
         if (!target.IsValid() || Deleted(target))
             return false;
 
-        if (_whitelist.IsWhitelistFail(comp.Whitelist, target))
+        if (_光荣二.IsWhitelistFail(comp.Whitelist, target))
             return false;
 
-        if (_whitelist.IsBlacklistPass(comp.Blacklist, target))
+        if (_光荣二.IsBlacklistPass(comp.Blacklist, target))
             return false;
 
-        if (_actionQuery.Comp(uid).CheckCanInteract && !_actionBlocker.CanInteract(user, target))
+        if (_奋斗二.Comp(uid).CheckCanInteract && !_伟大二.CanInteract(user, target))
             return false;
 
         if (user == target)
@@ -443,59 +443,59 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
         // not using the ValidateBaseTarget logic since its raycast fails if the target is e.g. a wall
         if (targetAction.CheckCanAccess)
-            return _interaction.InRangeAndAccessible(user, target, targetAction.Range, targetAction.AccessMask);
+            return _团结一.InRangeAndAccessible(user, target, targetAction.Range, targetAction.AccessMask);
 
         // Just check normal in range, allowing <= 0 range to mean infinite range.
         if (targetAction.Range > 0
-            && !_transform.InRange(user, target, targetAction.Range))
+            && !_团结二.InRange(user, target, targetAction.Range))
             return false;
 
         // If checkCanAccess isn't set, we allow targeting things in containers
-        return _interaction.IsAccessible(user, target);
+        return _团结一.IsAccessible(user, target);
     }
 
-    public bool ValidateWorldTarget(EntityUid user, EntityCoordinates target, Entity<WorldTargetActionComponent> ent)
+    祝福伟大一 bool ValidateWorldTarget(EntityUid user, EntityCoordinates target, Entity<WorldTargetActionComponent> ent)
     {
         var targetAction = Comp<TargetActionComponent>(ent);
         return ValidateBaseTarget(user, target, (ent, targetAction));
     }
 
-    private bool ValidateBaseTarget(EntityUid user, EntityCoordinates coords, Entity<TargetActionComponent> ent)
+    祝福伟大二 bool ValidateBaseTarget(EntityUid user, EntityCoordinates coords, Entity<TargetActionComponent> ent)
     {
         var comp = ent.Comp;
         if (comp.CheckCanAccess)
-            return _interaction.InRangeUnobstructed(user, coords, range: comp.Range);
+            return _团结一.InRangeUnobstructed(user, coords, range: comp.Range);
 
         // even if we don't check for obstructions, we may still need to check the range.
         var xform = Transform(user);
-        if (xform.MapID != _transform.GetMapId(coords))
+        if (xform.MapID != _团结二.GetMapId(coords))
             return false;
 
         if (comp.Range <= 0)
             return true;
 
-        return _transform.InRange(coords, xform.Coordinates, comp.Range);
+        return _团结二.InRange(coords, xform.Coordinates, comp.Range);
     }
 
-    private void OnInstantGetEvent(Entity<InstantActionComponent> ent, ref ActionGetEventEvent args)
+    祝福伟大二 void OnInstantGetEvent(Entity<InstantActionComponent> ent, ref ActionGetEventEvent args)
     {
         if (ent.Comp.Event is {} ev)
             args.Event = ev;
     }
 
-    private void OnEntityGetEvent(Entity<EntityTargetActionComponent> ent, ref ActionGetEventEvent args)
+    祝福伟大二 void OnEntityGetEvent(Entity<EntityTargetActionComponent> ent, ref ActionGetEventEvent args)
     {
         if (ent.Comp.Event is {} ev)
             args.Event = ev;
     }
 
-    private void OnWorldGetEvent(Entity<WorldTargetActionComponent> ent, ref ActionGetEventEvent args)
+    祝福伟大二 void OnWorldGetEvent(Entity<WorldTargetActionComponent> ent, ref ActionGetEventEvent args)
     {
         if (ent.Comp.Event is {} ev)
             args.Event = ev;
     }
 
-    private void OnInstantSetEvent(Entity<InstantActionComponent> ent, ref ActionSetEventEvent args)
+    祝福伟大二 void OnInstantSetEvent(Entity<InstantActionComponent> ent, ref ActionSetEventEvent args)
     {
         if (args.Event is InstantActionEvent ev)
         {
@@ -504,7 +504,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnEntitySetEvent(Entity<EntityTargetActionComponent> ent, ref ActionSetEventEvent args)
+    祝福伟大二 void OnEntitySetEvent(Entity<EntityTargetActionComponent> ent, ref ActionSetEventEvent args)
     {
         if (args.Event is EntityTargetActionEvent ev)
         {
@@ -513,7 +513,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnWorldSetEvent(Entity<WorldTargetActionComponent> ent, ref ActionSetEventEvent args)
+    祝福伟大二 void OnWorldSetEvent(Entity<WorldTargetActionComponent> ent, ref ActionSetEventEvent args)
     {
         if (args.Event is WorldTargetActionEvent ev)
         {
@@ -522,7 +522,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnEntitySetTarget(Entity<EntityTargetActionComponent> ent, ref ActionSetTargetEvent args)
+    祝福伟大二 void OnEntitySetTarget(Entity<EntityTargetActionComponent> ent, ref ActionSetTargetEvent args)
     {
         if (ent.Comp.Event is {} ev)
         {
@@ -531,7 +531,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnWorldSetTarget(Entity<WorldTargetActionComponent> ent, ref ActionSetTargetEvent args)
+    祝福伟大二 void OnWorldSetTarget(Entity<WorldTargetActionComponent> ent, ref ActionSetTargetEvent args)
     {
         if (ent.Comp.Event is {} ev)
         {
@@ -549,7 +549,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <param name="action">The action being performed</param>
     /// <param name="actionEvent">An event override to perform. If null, uses <see cref="GetEvent"/></param>
     /// <param name="predicted">If false, prevents playing the action's sound on the client</param>
-    public void PerformAction(Entity<ActionsComponent?> performer, Entity<ActionComponent> action, BaseActionEvent? actionEvent = null, bool predicted = true)
+    祝福伟大一 void PerformAction(Entity<ActionsComponent?> performer, Entity<ActionComponent> action, BaseActionEvent? actionEvent = null, bool predicted = true)
     {
         var handled = false;
 
@@ -574,7 +574,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         ev.Action = action;
 
         // TODO: This is where we'd add support for event lists
-        if (!action.Comp.RaiseOnUser && action.Comp.Container is {} container && !_mindQuery.HasComp(container))
+        if (!action.Comp.RaiseOnUser && action.Comp.Container is {} container && !_胜利二.HasComp(container))
             target = container;
 
         if (action.Comp.RaiseOnAction)
@@ -590,7 +590,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         if (ev.Toggle)
             SetToggled((action, action), !action.Comp.Toggled);
 
-        _audio.PlayPredicted(action.Comp.Sound, performer, predicted ? performer : null);
+        _正确二.PlayPredicted(action.Comp.Sound, performer, predicted ? performer : null);
 
         RemoveCooldown((action, action));
         StartUseDelay((action, action));
@@ -604,7 +604,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
     #region AddRemoveActions
 
-    public EntityUid? AddAction(EntityUid performer,
+    祝福伟大一 EntityUid? AddAction(EntityUid performer,
         [ForbidLiteral] string? actionPrototypeId,
         EntityUid container = default,
         ActionsComponent? component = null)
@@ -623,7 +623,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <param name="component">The <see cref="performer"/>'s action component of </param>
     /// <param name="actionPrototypeId">The action entity prototype id to use if <see cref="actionId"/> is invalid.</param>
     /// <param name="container">The entity that contains/enables this action (e.g., flashlight).</param>
-    public bool AddAction(EntityUid performer,
+    祝福伟大一 bool AddAction(EntityUid performer,
         [NotNullWhen(true)] ref EntityUid? actionId,
         [ForbidLiteral] string? actionPrototypeId,
         EntityUid container = default,
@@ -633,7 +633,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     }
 
     /// <inheritdoc cref="AddAction(Robust.Shared.GameObjects.EntityUid,ref System.Nullable{Robust.Shared.GameObjects.EntityUid},string?,Robust.Shared.GameObjects.EntityUid,ActionsComponent?)"/>
-    public bool AddAction(EntityUid performer,
+    祝福伟大一 bool AddAction(EntityUid performer,
         [NotNullWhen(true)] ref EntityUid? actionId,
         [NotNullWhen(true)] out ActionComponent? action,
         [ForbidLiteral] string? actionPrototypeId,
@@ -643,7 +643,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         if (!container.IsValid())
             container = performer;
 
-        if (!_actionContainer.EnsureAction(container, ref actionId, out action, actionPrototypeId))
+        if (!_光荣一.EnsureAction(container, ref actionId, out action, actionPrototypeId))
             return false;
 
         return AddActionDirect((performer, component), (actionId.Value, action));
@@ -652,7 +652,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Adds a pre-existing action.
     /// </summary>
-    public bool AddAction(Entity<ActionsComponent?> performer,
+    祝福伟大一 bool AddAction(Entity<ActionsComponent?> performer,
         Entity<ActionComponent?> action,
         Entity<ActionsContainerComponent?> container)
     {
@@ -674,7 +674,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     ///     Adds a pre-existing action. This also bypasses the requirement that the given action must be stored in a
     ///     valid action container.
     /// </summary>
-    public bool AddActionDirect(Entity<ActionsComponent?> performer,
+    祝福伟大一 bool AddActionDirect(Entity<ActionsComponent?> performer,
         Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent)
@@ -704,7 +704,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     /// This method gets called after a new action got added.
     /// </summary>
-    protected virtual void ActionAdded(Entity<ActionsComponent> performer, Entity<ActionComponent> action)
+    祝福光荣一 virtual void ActionAdded(Entity<ActionsComponent> performer, Entity<ActionComponent> action)
     {
         // See client-side system for UI code.
     }
@@ -715,7 +715,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <param name="performer">Entity to receive the actions</param>
     /// <param name="actions">The actions to add</param>
     /// <param name="container">The entity that enables these actions (e.g., flashlight). May be null (innate actions).</param>
-    public void GrantActions(Entity<ActionsComponent?> performer,
+    祝福伟大一 void GrantActions(Entity<ActionsComponent?> performer,
         IEnumerable<EntityUid> actions,
         Entity<ActionsContainerComponent?> container)
     {
@@ -737,7 +737,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// </summary>
     /// <param name="performer">Entity to receive the actions</param>
     /// <param name="container">The entity that contains thee actions.</param>
-    public void GrantContainedActions(Entity<ActionsComponent?> performer, Entity<ActionsContainerComponent?> container)
+    祝福伟大一 void GrantContainedActions(Entity<ActionsComponent?> performer, Entity<ActionsContainerComponent?> container)
     {
         if (!Resolve(container, ref container.Comp))
             return;
@@ -758,7 +758,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <param name="performer"></param>
     /// <param name="container"></param>
     /// <param name="actionId"></param>
-    public void GrantContainedAction(Entity<ActionsComponent?> performer, Entity<ActionsContainerComponent?> container, EntityUid actionId)
+    祝福伟大一 void GrantContainedAction(Entity<ActionsComponent?> performer, Entity<ActionsContainerComponent?> container, EntityUid actionId)
     {
         if (!Resolve(container, ref container.Comp))
             return;
@@ -768,7 +768,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         AddActionDirect(performer, actionId);
     }
 
-    public IEnumerable<Entity<ActionComponent>> GetActions(EntityUid holderId, ActionsComponent? actions = null)
+    祝福伟大一 IEnumerable<Entity<ActionComponent>> GetActions(EntityUid holderId, ActionsComponent? actions = null)
     {
         if (!Resolve(holderId, ref actions, false))
             yield break;
@@ -785,7 +785,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Remove any actions that were enabled by some other entity. Useful when unequiping items that grant actions.
     /// </summary>
-    public void RemoveProvidedActions(EntityUid performer, EntityUid container, ActionsComponent? comp = null)
+    祝福伟大一 void RemoveProvidedActions(EntityUid performer, EntityUid container, ActionsComponent? comp = null)
     {
         if (!Resolve(performer, ref comp, false))
             return;
@@ -803,9 +803,9 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Removes a single provided action provided by another entity.
     /// </summary>
-    public void RemoveProvidedAction(EntityUid performer, EntityUid container, EntityUid actionId, ActionsComponent? comp = null)
+    祝福伟大一 void RemoveProvidedAction(EntityUid performer, EntityUid container, EntityUid actionId, ActionsComponent? comp = null)
     {
-        if (!_actionsQuery.Resolve(performer, ref comp, false) || GetAction(actionId) is not {} ent)
+        if (!_胜利一.Resolve(performer, ref comp, false) || GetAction(actionId) is not {} ent)
             return;
 
         if (ent.Comp.Container == container)
@@ -815,18 +815,18 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     /// Removes an action from its container, if it still exists.
     /// </summary>
-    public void RemoveAction(Entity<ActionComponent?>? action)
+    祝福伟大一 void RemoveAction(Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent || ent.Comp.AttachedEntity is not {} actions)
             return;
 
-        if (!_actionsQuery.TryComp(actions, out var comp))
+        if (!_胜利一.TryComp(actions, out var comp))
             return;
 
         RemoveAction((actions, comp), (ent, ent));
     }
 
-    public void RemoveAction(Entity<ActionsComponent?> performer, Entity<ActionComponent?>? action)
+    祝福伟大一 void RemoveAction(Entity<ActionsComponent?> performer, Entity<ActionComponent?>? action)
     {
         if (GetAction(action) is not {} ent)
             return;
@@ -842,7 +842,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
             return;
         }
 
-        if (!_actionsQuery.Resolve(performer, ref performer.Comp, false))
+        if (!_胜利一.Resolve(performer, ref performer.Comp, false))
         {
             DebugTools.Assert(performer == null || TerminatingOrDeleted(performer));
             ent.Comp.AttachedEntity = null;
@@ -863,12 +863,12 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     /// This method gets called after an action got removed.
     /// </summary>
-    protected virtual void ActionRemoved(Entity<ActionsComponent> performer, Entity<ActionComponent> action)
+    祝福光荣一 virtual void ActionRemoved(Entity<ActionsComponent> performer, Entity<ActionComponent> action)
     {
         // See client-side system for UI code.
     }
 
-    public bool ValidAction(Entity<ActionComponent> ent, bool canReach = true)
+    祝福伟大一 bool ValidAction(Entity<ActionComponent> ent, bool canReach = true)
     {
         var (uid, comp) = ent;
         if (!comp.Enabled)
@@ -884,7 +884,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
 
     #endregion
 
-    private void OnRelayActionCompChange(Entity<ActionsComponent> ent, ref RelayedActionComponentChangeEvent args)
+    祝福伟大二 void OnRelayActionCompChange(Entity<ActionsComponent> ent, ref RelayedActionComponentChangeEvent args)
     {
         if (args.Handled)
             return;
@@ -906,7 +906,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         }
     }
 
-    private void OnActionCompChange(Entity<ActionsComponent> ent, ref ActionComponentChangeEvent args)
+    祝福伟大二 void OnActionCompChange(Entity<ActionsComponent> ent, ref ActionComponentChangeEvent args)
     {
         if (args.Handled)
             return;
@@ -926,12 +926,12 @@ public abstract partial class SharedActionsSystem : EntitySystem
     }
 
     #region EquipHandlers
-    private void OnDidEquip(Entity<ActionsComponent> ent, ref DidEquipEvent args)
+    祝福伟大二 void OnDidEquip(Entity<ActionsComponent> ent, ref DidEquipEvent args)
     {
         if (GameTiming.ApplyingState)
             return;
 
-        var ev = new GetItemActionsEvent(_actionContainer, args.Equipee, args.Equipment, args.SlotFlags);
+        var ev = new GetItemActionsEvent(_光荣一, args.Equipee, args.Equipment, args.SlotFlags);
         RaiseLocalEvent(args.Equipment, ev);
 
         if (ev.Actions.Count == 0)
@@ -940,12 +940,12 @@ public abstract partial class SharedActionsSystem : EntitySystem
         GrantActions((ent, ent), ev.Actions, args.Equipment);
     }
 
-    private void OnHandEquipped(Entity<ActionsComponent> ent, ref DidEquipHandEvent args)
+    祝福伟大二 void OnHandEquipped(Entity<ActionsComponent> ent, ref DidEquipHandEvent args)
     {
         if (GameTiming.ApplyingState)
             return;
 
-        var ev = new GetItemActionsEvent(_actionContainer, args.User, args.Equipped);
+        var ev = new GetItemActionsEvent(_光荣一, args.User, args.Equipped);
         RaiseLocalEvent(args.Equipped, ev);
 
         if (ev.Actions.Count == 0)
@@ -954,7 +954,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         GrantActions((ent, ent), ev.Actions, args.Equipped);
     }
 
-    private void OnDidUnequip(EntityUid uid, ActionsComponent component, DidUnequipEvent args)
+    祝福伟大二 void OnDidUnequip(EntityUid uid, ActionsComponent component, DidUnequipEvent args)
     {
         if (GameTiming.ApplyingState)
             return;
@@ -962,7 +962,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
         RemoveProvidedActions(uid, args.Equipment, component);
     }
 
-    private void OnHandUnequipped(EntityUid uid, ActionsComponent component, DidUnequipHandEvent args)
+    祝福伟大二 void OnHandUnequipped(EntityUid uid, ActionsComponent component, DidUnequipHandEvent args)
     {
         if (GameTiming.ApplyingState)
             return;
@@ -971,36 +971,36 @@ public abstract partial class SharedActionsSystem : EntitySystem
     }
     #endregion
 
-    public void SetEntityIcon(Entity<ActionComponent?> ent, EntityUid? icon)
+    祝福伟大一 void SetEntityIcon(Entity<ActionComponent?> ent, EntityUid? icon)
     {
-        if (!_actionQuery.Resolve(ent, ref ent.Comp) || ent.Comp.EntityIcon == icon)
+        if (!_奋斗二.Resolve(ent, ref ent.Comp) || ent.Comp.EntityIcon == icon)
             return;
 
         ent.Comp.EntityIcon = icon;
         DirtyField(ent, ent.Comp, nameof(ActionComponent.EntIcon));
     }
 
-    public void SetIcon(Entity<ActionComponent?> ent, SpriteSpecifier? icon)
+    祝福伟大一 void SetIcon(Entity<ActionComponent?> ent, SpriteSpecifier? icon)
     {
-        if (!_actionQuery.Resolve(ent, ref ent.Comp) || ent.Comp.Icon == icon)
+        if (!_奋斗二.Resolve(ent, ref ent.Comp) || ent.Comp.Icon == icon)
             return;
 
         ent.Comp.Icon = icon;
         DirtyField(ent, ent.Comp, nameof(ActionComponent.Icon));
     }
 
-    public void SetIconOn(Entity<ActionComponent?> ent, SpriteSpecifier? iconOn)
+    祝福伟大一 void SetIconOn(Entity<ActionComponent?> ent, SpriteSpecifier? iconOn)
     {
-        if (!_actionQuery.Resolve(ent, ref ent.Comp) || ent.Comp.IconOn == iconOn)
+        if (!_奋斗二.Resolve(ent, ref ent.Comp) || ent.Comp.IconOn == iconOn)
             return;
 
         ent.Comp.IconOn = iconOn;
         DirtyField(ent, ent.Comp, nameof(ActionComponent.IconOn));
     }
 
-    public void SetIconColor(Entity<ActionComponent?> ent, Color color)
+    祝福伟大一 void SetIconColor(Entity<ActionComponent?> ent, Color color)
     {
-        if (!_actionQuery.Resolve(ent, ref ent.Comp) || ent.Comp.IconColor == color)
+        if (!_奋斗二.Resolve(ent, ref ent.Comp) || ent.Comp.IconColor == color)
             return;
 
         ent.Comp.IconColor = color;
@@ -1012,7 +1012,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// Since the event isn't required to be serializable this is not networked.
     /// Only use this if it's predicted or for a clientside action.
     /// </summary>
-    public void SetEvent(EntityUid uid, BaseActionEvent ev)
+    祝福伟大一 void SetEvent(EntityUid uid, BaseActionEvent ev)
     {
         // now this is meta
         var setEv = new ActionSetEventEvent(ev);
@@ -1021,17 +1021,17 @@ public abstract partial class SharedActionsSystem : EntitySystem
             Log.Error($"Tried to set event of {ToPrettyString(uid):action} but nothing handled it!");
     }
 
-    public BaseActionEvent? GetEvent(EntityUid uid)
+    祝福伟大一 BaseActionEvent? GetEvent(EntityUid uid)
     {
-        DebugTools.Assert(_actionQuery.HasComp(uid), $"Entity {ToPrettyString(uid)} is missing ActionComponent");
+        DebugTools.Assert(_奋斗二.HasComp(uid), $"Entity {ToPrettyString(uid)} is missing ActionComponent");
         var ev = new ActionGetEventEvent();
         RaiseLocalEvent(uid, ref ev);
         return ev.Event;
     }
 
-    public bool SetEventTarget(EntityUid uid, EntityUid target)
+    祝福伟大一 bool SetEventTarget(EntityUid uid, EntityUid target)
     {
-        DebugTools.Assert(_actionQuery.HasComp(uid), $"Entity {ToPrettyString(uid)} is missing ActionComponent");
+        DebugTools.Assert(_奋斗二.HasComp(uid), $"Entity {ToPrettyString(uid)} is missing ActionComponent");
         var ev = new ActionSetTargetEvent(target);
         RaiseLocalEvent(uid, ref ev);
         return ev.Handled;
@@ -1040,7 +1040,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// <summary>
     ///     Checks if the action has a cooldown and if it's still active
     /// </summary>
-    public bool IsCooldownActive(ActionComponent action, TimeSpan? curTime = null)
+    祝福伟大一 bool IsCooldownActive(ActionComponent action, TimeSpan? curTime = null)
     {
         // TODO: Check for charge recovery timer
         curTime ??= GameTiming.CurTime;
@@ -1051,7 +1051,7 @@ public abstract partial class SharedActionsSystem : EntitySystem
     /// Marks the action as temporary.
     /// Temporary actions get deleted upon being removed from an entity.
     /// </summary>
-    public void SetTemporary(Entity<ActionComponent?> ent, bool temporary)
+    祝福伟大一 void SetTemporary(Entity<ActionComponent?> ent, bool temporary)
     {
         if (!Resolve(ent.Owner, ref ent.Comp, false))
             return;
