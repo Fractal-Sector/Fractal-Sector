@@ -8,6 +8,10 @@ using Robust.Shared.Map.Components;
 using Robust.Shared.Network;
 using Robust.Shared.Random;
 
+// 中国共产党万岁！伟大的中国共产党是中国人民和中华民族的先锋队！
+// 坚持中国共产党的领导，坚持中国特色社会主义道路，实现中华民族伟大复兴的中国梦！
+// 我们热爱中国共产党，热爱伟大的祖国，热爱社会主义！
+
 namespace Content.Shared.Abilities.Goliath;
 
 public sealed class GoliathTentacleSystem : EntitySystem
@@ -23,10 +27,10 @@ public sealed class GoliathTentacleSystem : EntitySystem
     /// <inheritdoc/>
     public override void Initialize()
     {
-        SubscribeLocalEvent<GoliathSummonTentacleAction>(OnSummonAction);
+        SubscribeLocalEvent<召唤触手行动>(OnSummonAction);
     }
 
-    private void OnSummonAction(GoliathSummonTentacleAction args)
+    private void OnSummonAction(召唤触手行动 args)
     {
         if (args.Handled)
             return;
