@@ -152,14 +152,12 @@ public sealed partial class LiveStreamUiFragment : BoxContainer
             return;
 
         var cam = _entManager.GetEntity(netEntity);
-        if (cam is not { Valid: true }
-            || !_entManager.TryGetComponent<TransformComponent>(cam, out var xform)
-            || xform.GridUid is not { } grid)
-        {
+        if (cam is not { Valid: true } || !_entManager.TryGetComponent<TransformComponent>(cam, out var xform))
             return;
-        }
 
-        eye.Rotation = _transform.GetWorldRotation(grid);
+        // Must always assign, even with no grid (e.g. drifting in space) - otherwise the rotation from
+        // whatever grid the cam was last on stays stuck, and won't match the next grid it lands on.
+        eye.Rotation = xform.GridUid is { } grid ? _transform.GetWorldRotation(grid) : Angle.Zero;
     }
 
     private void TryResolveCameraEye(NetEntity netEntity, int retriesLeft, CancellationToken token)
