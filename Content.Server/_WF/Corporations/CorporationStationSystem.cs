@@ -8,6 +8,7 @@ using Content.Server.Chat.Managers;
 using Content.Server.Database;
 using Content.Server.GameTicking;
 using Content.Server.GameTicking.Events;
+using Content.Server.Shuttles.Systems;
 using Content.Shared._WF.CCVar;
 using Content.Shared._WF.Corporations;
 using Content.Shared.Chat;
@@ -56,6 +57,7 @@ public sealed class CorporationStationSystem : EntitySystem
     [Dependency] private readonly IPlayerManager _playerManager = default!;
     [Dependency] private readonly IPrototypeManager _proto = default!;
     [Dependency] private readonly TagSystem _tag = default!;
+    [Dependency] private readonly DockingSystem _docking = default!; // FS: fix docking with loadgrid
 
     private ISawmill _log = default!;
 
@@ -452,6 +454,8 @@ public sealed class CorporationStationSystem : EntitySystem
             if (stripBlacklist)
                 StripBlacklistedEntities(gridUid);
 
+            _docking.UndockDocks(gridUid); // FS: fix docking with loadgrid
+
             var savePath = new ResPath($"/corp_stations/corp_{corpId}.yml");
             if (_loader.TrySaveGrid(gridUid, savePath))
                 _log.Info($"Saved station for corp {corpId}");
@@ -465,6 +469,9 @@ public sealed class CorporationStationSystem : EntitySystem
     {
         if (!_activeStations.TryGetValue(corpId, out var gridUid) || !EntityManager.EntityExists(gridUid))
             return false;
+
+        _docking.UndockDocks(gridUid); // FS: fix docking with loadgrid
+
         var savePath = new ResPath($"/corp_stations/corp_{corpId}.yml");
         if (_loader.TrySaveGrid(gridUid, savePath))
         {
