@@ -166,6 +166,19 @@ namespace Content.Server.Shuttles.Systems
             // This little gem is for docking deserialization
             if (component.DockedWith != null)
             {
+                // FS: fix docking with loadgrid
+                var target = component.DockedWith.Value;
+                if (!target.IsValid() || !Exists(target) || !HasComp<MetaDataComponent>(target))
+                {
+                    Log.Warning($"Docking port {ToPrettyString(uid)} referenced invalid target entity {target}. Resetting docking state.");
+                    component.DockedWith = null;
+                    component.DockJoint = null;
+                    component.DockJointId = null;
+                    Dirty(uid,component);
+                    return;
+                }
+                // FS end
+
                 // They're still initialising so we'll just wait for both to be ready.
                 if (MetaData(component.DockedWith.Value).EntityLifeStage < EntityLifeStage.Initialized)
                     return;
@@ -475,9 +488,9 @@ namespace Content.Server.Shuttles.Systems
         {
             if (args.DockEntities.Count == 0)
                 return;
-            
+
             var undockedAny = false;
-            
+
             foreach (var dockEntity in args.DockEntities)
             {
                 if (!TryGetEntity(dockEntity, out var dockEnt) ||
@@ -496,7 +509,7 @@ namespace Content.Server.Shuttles.Systems
                 Undock(dock);
                 undockedAny = true;
             }
-            
+
             if (!undockedAny)
             {
                 _popup.PopupCursor(Loc.GetString("shuttle-console-undock-fail"));
