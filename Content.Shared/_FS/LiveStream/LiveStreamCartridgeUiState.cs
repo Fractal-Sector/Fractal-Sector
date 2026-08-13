@@ -23,4 +23,5 @@ public sealed class LiveStreamCartridgeUiState : BoundUserInterfaceState
     public string WatchedStreamerName = string.Empty;
 
     public List<LiveStreamChatMessage> ChatMessages = new();
+    public List<LiveStreamDonatorInfo> TopDonators = new();
 }

@@ -41,3 +41,19 @@ public sealed class LiveStreamInfo
         ViewerCount = viewerCount;
     }
 }
+
+/// <summary>
+/// One entry in a stream's top-donators list: a donor's name and how much they've given this stream in total.
+/// </summary>
+[Serializable, NetSerializable]
+public sealed class LiveStreamDonatorInfo
+{
+    public string Name;
+    public int Amount;
+
+    public LiveStreamDonatorInfo(string name, int amount)
+    {
+        Name = name;
+        Amount = amount;
+    }
+}

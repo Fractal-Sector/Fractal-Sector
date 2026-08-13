@@ -1,4 +1,6 @@
+using System.Linq;
 using Content.Server._NF.Bank;
+using Content.Server.Chat.Systems;
 using Content.Server.SurveillanceCamera;
 using Content.Shared._FS.LiveStream;
 using Robust.Shared.Timing;
@@ -26,12 +28,29 @@ public sealed class LiveStreamSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<LiveStreamCamComponent, ComponentShutdown>(OnCamShutdown);
+        SubscribeLocalEvent<EntitySpokeEvent>(OnEntitySpoke);
     }
 
     private void OnCamShutdown(EntityUid uid, LiveStreamCamComponent component, ComponentShutdown args)
     {
         if (component.IsStreaming)
             StopStream(uid, component);
+    }
+
+    /// <summary>
+    /// Relays whatever the streamer says out loud into their own stream's chat, like captions - otherwise
+    /// viewers only see typed chat and donations, never anything the streamer actually says on camera.
+    /// </summary>
+    private void OnEntitySpoke(EntitySpokeEvent args)
+    {
+        foreach (var cam in _activeStreams)
+        {
+            if (!TryComp<LiveStreamCamComponent>(cam, out var comp) || comp.HolderUid != args.Source)
+                continue;
+
+            AddChatMessage(cam, MetaData(args.Source).EntityName, args.Message, false, comp);
+            break; // an entity can only be the holder of one active stream at a time
+        }
     }
 
     public bool TryStartStream(EntityUid cam, string title, EntityUid holder, out string? errorLocKey, LiveStreamCamComponent? component = null)
@@ -61,6 +80,7 @@ public sealed class LiveStreamSystem : EntitySystem
         component.HolderUid = holder;
         component.ViewerCount = 0;
         component.ChatMessages.Clear();
+        component.DonationTotals.Clear();
 
         _activeStreams.Add(cam);
         _camera.SetActive(cam, true);
@@ -113,6 +133,8 @@ public sealed class LiveStreamSystem : EntitySystem
         var overflow = component.ChatMessages.Count - component.MaxChatMessages;
         if (overflow > 0)
             component.ChatMessages.RemoveRange(0, overflow);
+
+        RaiseLocalEvent(new LiveStreamChatUpdatedEvent(cam));
     }
 
     /// <summary>Real bank transfer from viewer to streamer - not flavor text.</summary>
@@ -138,8 +160,29 @@ public sealed class LiveStreamSystem : EntitySystem
             return false;
         }
 
-        _bank.TryBankDeposit(holder, amount);
+        if (!_bank.TryBankDeposit(holder, amount))
+        {
+            // Streamer couldn't be paid (no bank account, no active session, etc.) - refund the viewer
+            // instead of silently eating their money.
+            _bank.TryBankDeposit(viewer, amount);
+            errorLocKey = "live-stream-error-donation-failed";
+            return false;
+        }
+
+        var donorName = MetaData(viewer).EntityName;
+        component.DonationTotals[donorName] = component.DonationTotals.GetValueOrDefault(donorName) + amount;
+
         return true;
+    }
+
+    /// <summary>Top donators for a stream, highest total first, for the viewer UI's leaderboard sidebar.</summary>
+    public List<LiveStreamDonatorInfo> GetTopDonators(LiveStreamCamComponent component, int limit = 5)
+    {
+        return component.DonationTotals
+            .OrderByDescending(kv => kv.Value)
+            .Take(limit)
+            .Select(kv => new LiveStreamDonatorInfo(kv.Key, kv.Value))
+            .ToList();
     }
 
     public LiveStreamCamComponent? GetStreamComponent(EntityUid cam) => CompOrNull<LiveStreamCamComponent>(cam);
@@ -157,5 +200,16 @@ public sealed class LiveStreamSystem : EntitySystem
         }
 
         return list;
+    }
+}
+
+/// <summary>Raised whenever a chat message (typed, donation, or spoken) is added to a stream's log.</summary>
+public sealed class LiveStreamChatUpdatedEvent : EntityEventArgs
+{
+    public readonly EntityUid Cam;
+
+    public LiveStreamChatUpdatedEvent(EntityUid cam)
+    {
+        Cam = cam;
     }
 }

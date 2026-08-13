@@ -13,6 +13,7 @@ live-stream-error-too-many-streams = Too many streams are live right now. Try ag
 live-stream-error-not-streaming = That stream isn't live anymore.
 live-stream-error-invalid-amount = Enter a valid donation amount.
 live-stream-error-insufficient-funds = You don't have enough credits for that.
+live-stream-error-donation-failed = Couldn't send the donation to the streamer. Your money was refunded.
 
 live-stream-chat-donate = { $sender } donated { $amount } cr!
 live-stream-chat-donate-message = { $sender } donated { $amount } cr: { $message }
@@ -33,3 +34,7 @@ live-stream-live-label = ● LIVE - { $title }
 live-stream-viewer-count-label = { $count } watching
 live-stream-watching-label = Watching { $name }
 live-stream-list-entry = { $title } - { $streamer } ({ $count } watching)
+
+live-stream-top-donators-label = Top donators
+live-stream-top-donators-empty = No donations yet
+live-stream-top-donators-entry = { $name } - { $amount } cr

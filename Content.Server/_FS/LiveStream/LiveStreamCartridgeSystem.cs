@@ -28,6 +28,12 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
         SubscribeLocalEvent<LiveStreamCartridgeComponent, CartridgeMessageEvent>(OnUiMessage);
         SubscribeLocalEvent<LiveStreamCartridgeComponent, CartridgeUiReadyEvent>(OnUiReady);
         SubscribeLocalEvent<LiveStreamCartridgeComponent, CartridgeDeactivatedEvent>(OnDeactivated);
+        SubscribeLocalEvent<LiveStreamChatUpdatedEvent>(OnChatUpdated);
+    }
+
+    private void OnChatUpdated(LiveStreamChatUpdatedEvent args)
+    {
+        UpdateUIsWatching(args.Cam);
     }
 
     private void OnUiReady(EntityUid uid, LiveStreamCartridgeComponent component, CartridgeUiReadyEvent args)
@@ -109,13 +115,12 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
                 break;
 
             case LiveStreamMessageType.SendChat:
-                if (SendChat(component, holder, message.Content) is { } chatCam)
-                    UpdateUIsWatching(chatCam);
+                // UI refresh happens via LiveStreamChatUpdatedEvent, raised inside AddChatMessage.
+                SendChat(component, holder, message.Content);
                 break;
 
             case LiveStreamMessageType.SendDonate:
-                if (SendDonation(component, holder, message.Content) is { } donateCam)
-                    UpdateUIsWatching(donateCam);
+                SendDonation(component, holder, message.Content);
                 break;
         }
     }
@@ -221,10 +226,12 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
             state.WatchedCamNetEntity = GetNetEntity(watchedCam);
             state.WatchedStreamerName = watchedComp.HolderUid is { } wHolder ? MetaData(wHolder).EntityName : string.Empty;
             state.ChatMessages = new List<LiveStreamChatMessage>(watchedComp.ChatMessages);
+            state.TopDonators = _liveStream.GetTopDonators(watchedComp);
         }
         else if (camComp is { IsStreaming: true })
         {
             state.ChatMessages = new List<LiveStreamChatMessage>(camComp.ChatMessages);
+            state.TopDonators = _liveStream.GetTopDonators(camComp);
         }
 
         _cartridgeLoaderSystem?.UpdateCartridgeUiState(loaderUid, state);

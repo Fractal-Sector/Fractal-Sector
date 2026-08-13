@@ -24,4 +24,7 @@ public sealed partial class LiveStreamCamComponent : Component
     public int ViewerCount;
 
     public List<LiveStreamChatMessage> ChatMessages = new();
+
+    /// <summary>Total donated this stream, keyed by donor name, for the top-donators list.</summary>
+    public Dictionary<string, int> DonationTotals = new();
 }

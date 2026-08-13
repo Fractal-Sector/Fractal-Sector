@@ -13,6 +13,7 @@ live-stream-error-too-many-streams = Сейчас слишком много ак
 live-stream-error-not-streaming = Эта трансляция уже закончилась.
 live-stream-error-invalid-amount = Укажите корректную сумму донейта.
 live-stream-error-insufficient-funds = Недостаточно кредитов.
+live-stream-error-donation-failed = Не удалось перевести донат стримеру. Деньги возвращены.
 
 live-stream-chat-donate = { $sender } задонатил { $amount } кр!
 live-stream-chat-donate-message = { $sender } задонатил { $amount } кр: { $message }
@@ -33,3 +34,7 @@ live-stream-live-label = ● ЭФИР — { $title }
 live-stream-viewer-count-label = { $count } смотрят
 live-stream-watching-label = Смотрите { $name }
 live-stream-list-entry = { $title } — { $streamer } ({ $count } смотрят)
+
+live-stream-top-donators-label = Топ донатеров
+live-stream-top-donators-empty = Пока никто не задонатил
+live-stream-top-donators-entry = { $name } — { $amount } кр
