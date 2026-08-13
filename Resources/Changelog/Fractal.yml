@@ -499,3 +499,10 @@ Entries:
   id: 42
   time: '2026-08-12T07:41:11.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/71
+- author: IsNotAcceptable
+  changes:
+    - type: Fix
+      message: Докинг теперь не сохраняет состояние стыковки
+  id: 43
+  time: '2026-08-13T17:14:21.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/73
