@@ -18,10 +18,10 @@ public sealed class HeightPseudoItemSystem : EntitySystem
     [Dependency] private readonly IPrototypeManager _proto = default!;
 
     /// <summary>
-    /// A humanoid counts as "small" once their Height is within the bottom fraction of their
-    /// species' Min-Max height range. Tune here if it feels too easy/hard to qualify.
+    /// A humanoid counts as "small" once their actual height (species AverageHeight * Height
+    /// multiplier) drops to or below this, in cm. Tune here if it feels too easy/hard to qualify.
     /// </summary>
-    private const float SmallHeightFraction = 0.2f;
+    private const float SmallHeightThresholdCm = 175f;
 
     /// <summary>
     /// Grid shape for a stashed small humanoid: 6 wide x 2 tall (12 cells). Fits entirely inside a
@@ -56,8 +56,8 @@ public sealed class HeightPseudoItemSystem : EntitySystem
         if (!_proto.TryIndex<SpeciesPrototype>(component.Species, out var species))
             return;
 
-        var threshold = species.MinHeight + (species.MaxHeight - species.MinHeight) * SmallHeightFraction;
-        var isSmall = component.Height <= threshold;
+        var heightCm = component.Height * species.AverageHeight;
+        var isSmall = heightCm <= SmallHeightThresholdCm;
 
         if (isSmall)
         {
