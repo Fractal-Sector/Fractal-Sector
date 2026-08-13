@@ -1,6 +1,5 @@
 using System.Linq;
 using Content.Server._NF.Bank;
-using Content.Server.Chat.Systems;
 using Content.Server.SurveillanceCamera;
 using Content.Shared._FS.LiveStream;
 using Robust.Shared.Timing;
@@ -28,29 +27,12 @@ public sealed class LiveStreamSystem : EntitySystem
         base.Initialize();
 
         SubscribeLocalEvent<LiveStreamCamComponent, ComponentShutdown>(OnCamShutdown);
-        SubscribeLocalEvent<EntitySpokeEvent>(OnEntitySpoke);
     }
 
     private void OnCamShutdown(EntityUid uid, LiveStreamCamComponent component, ComponentShutdown args)
     {
         if (component.IsStreaming)
             StopStream(uid, component);
-    }
-
-    /// <summary>
-    /// Relays whatever the streamer says out loud into their own stream's chat, like captions - otherwise
-    /// viewers only see typed chat and donations, never anything the streamer actually says on camera.
-    /// </summary>
-    private void OnEntitySpoke(EntitySpokeEvent args)
-    {
-        foreach (var cam in _activeStreams)
-        {
-            if (!TryComp<LiveStreamCamComponent>(cam, out var comp) || comp.HolderUid != args.Source)
-                continue;
-
-            AddChatMessage(cam, MetaData(args.Source).EntityName, args.Message, false, comp);
-            break; // an entity can only be the holder of one active stream at a time
-        }
     }
 
     public bool TryStartStream(EntityUid cam, string title, EntityUid holder, out string? errorLocKey, LiveStreamCamComponent? component = null)
