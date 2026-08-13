@@ -7,6 +7,14 @@ namespace Content.Server._FS.LiveStream;
 [RegisterComponent]
 public sealed partial class LiveStreamCartridgeComponent : Component
 {
+    /// <summary>
+    /// Whether this cartridge can start a stream, not just watch one. Split into a separate paid
+    /// program (see the cargo catalog) from the free viewer program so anyone can watch, but only
+    /// those who bought the broadcaster cartridge can go live.
+    /// </summary>
+    [DataField]
+    public bool CanBroadcast;
+
     public EntityUid? WatchedCamUid;
     public EntityUid? LoaderUid;
 }

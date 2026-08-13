@@ -19,9 +19,9 @@
 
 - type: entity
   parent: NFBasePDACartridge
-  id: LiveStreamCartridge
-  name: live stream cartridge
-  description: A PDA program for watching (and starting) live streams from stream cams.
+  id: LiveStreamViewerCartridge
+  name: live stream viewer cartridge
+  description: A PDA program for browsing and watching live streams from stream cams. Free, preinstalled on every PDA.
   components:
   - type: Sprite
     sprite: Objects/Devices/cartridge.rsi
@@ -29,8 +29,41 @@
   - type: UIFragment
     ui: !type:LiveStreamUi
   - type: Cartridge
-    programName: live-stream-program-name
+    programName: live-stream-viewer-program-name
     icon:
       sprite: Objects/Devices/camera_bug.rsi
       state: camera_bug
   - type: LiveStreamCartridge
+
+- type: entity
+  parent: NFBasePDACartridge
+  id: LiveStreamBroadcasterCartridge
+  name: live stream broadcaster cartridge
+  description: A paid PDA program that unlocks the ability to start your own live stream from a stream cam. Also lets you watch, like the free viewer cartridge.
+  components:
+  - type: Sprite
+    sprite: Objects/Devices/cartridge.rsi
+    state: cart-eye
+  - type: UIFragment
+    ui: !type:LiveStreamUi
+  - type: Cartridge
+    programName: live-stream-broadcaster-program-name
+    icon:
+      sprite: Objects/Devices/camera_bug.rsi
+      state: camera_bug
+  - type: LiveStreamCartridge
+    canBroadcast: true
+
+# Sold via cargo (see Resources/Prototypes/Catalog/Cargo/cargo_service.yml) rather than a loadout -
+# the loadout system has no "available to every job" list short of editing all ~90 role prototypes,
+# while a cargo product is one entry and buyable by anyone mid-round, not just at character creation.
+- type: entity
+  id: CrateLiveStreamBroadcasterKit
+  parent: CratePlastic
+  name: live stream broadcaster kit crate
+  description: Everything needed to start your own live stream - a broadcaster cartridge and a stream cam.
+  components:
+  - type: StorageFill
+    contents:
+      - id: LiveStreamBroadcasterCartridge
+      - id: LiveStreamCam

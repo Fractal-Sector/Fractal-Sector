@@ -1,4 +1,5 @@
-live-stream-program-name = live stream
+live-stream-viewer-program-name = stream viewer
+live-stream-broadcaster-program-name = live stream
 
 live-stream-default-title = Untitled stream
 live-stream-chat-system-sender = System
@@ -6,6 +7,7 @@ live-stream-chat-started = The stream has started.
 live-stream-chat-ended = The stream has ended.
 
 live-stream-error-no-camera = You need a stream cam in hand or worn to do that.
+live-stream-error-no-broadcast-access = This program can't start streams. You need the broadcaster cartridge.
 live-stream-error-already-streaming = This cam is already streaming.
 live-stream-error-too-many-streams = Too many streams are live right now. Try again later.
 live-stream-error-not-streaming = That stream isn't live anymore.

@@ -93,6 +93,7 @@
     preinstalled:
       - CrewManifestCartridge
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
       - BountyContractsCartridge # Frontier
@@ -179,6 +180,7 @@
     preinstalled:
     - CrewManifestCartridge
     - NotekeeperCartridge
+    - LiveStreamViewerCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
     - BountyContractsCartridge # Frontier
@@ -531,6 +533,7 @@
     preinstalled:
     - CrewManifestCartridge
     - NotekeeperCartridge
+    - LiveStreamViewerCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
     - AstroNavCartridge
@@ -950,6 +953,7 @@
     preinstalled:
     - CrewManifestCartridge
     - NotekeeperCartridge
+    - LiveStreamViewerCartridge
     - NanoTaskCartridge
     - NewsReaderCartridge
     - WantedListCartridge
@@ -1023,6 +1027,7 @@
     preinstalled:
       - CrewManifestCartridge
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
       - MedTekCartridge
@@ -1053,6 +1058,7 @@
     preinstalled:
       - CrewManifestCartridge
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
       - LogProbeCartridge
@@ -1183,6 +1189,7 @@
     preinstalled:
       - CrewManifestCartridge # Wayfarer
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoChatCartridge # DeltaV
       - NanoTaskCartridge
       - NewsReaderCartridge # Wayfarer
@@ -1217,6 +1224,7 @@
     preinstalled:
       - CrewManifestCartridge
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoTaskCartridge
       - NewsReaderCartridge
       - MedTekCartridge
@@ -1578,6 +1586,7 @@
     preinstalled:
       - CrewManifestCartridge # Wayfarer
       - NotekeeperCartridge
+      - LiveStreamViewerCartridge
       - NanoChatCartridge # DeltaV
       - NanoTaskCartridge
       - NewsReaderCartridge # Wayfarer

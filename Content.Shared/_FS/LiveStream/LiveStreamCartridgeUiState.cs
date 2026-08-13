@@ -11,6 +11,7 @@ namespace Content.Shared._FS.LiveStream;
 public sealed class LiveStreamCartridgeUiState : BoundUserInterfaceState
 {
     public bool HasCamera;
+    public bool CanBroadcast;
     public bool IsStreaming;
     public int ViewerCount;
     public string StreamTitle = string.Empty;

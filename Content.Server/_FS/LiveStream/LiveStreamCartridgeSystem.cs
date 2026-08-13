@@ -57,7 +57,11 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
         switch (message.Type)
         {
             case LiveStreamMessageType.StartStream:
-                if (FindStreamCam(holder) is { } startCam)
+                if (!component.CanBroadcast)
+                {
+                    ShowError(holder, "live-stream-error-no-broadcast-access");
+                }
+                else if (FindStreamCam(holder) is { } startCam)
                 {
                     if (!_liveStream.TryStartStream(startCam, message.Content, holder, out var startErr))
                         ShowError(holder, startErr);
@@ -204,6 +208,7 @@ public sealed class LiveStreamCartridgeSystem : EntitySystem
         var state = new LiveStreamCartridgeUiState
         {
             HasCamera = cam != null,
+            CanBroadcast = component.CanBroadcast,
             IsStreaming = camComp?.IsStreaming ?? false,
             ViewerCount = camComp?.ViewerCount ?? 0,
             StreamTitle = camComp?.StreamTitle ?? string.Empty,

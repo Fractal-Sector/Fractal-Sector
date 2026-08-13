@@ -1,4 +1,5 @@
-live-stream-program-name = стрим
+live-stream-viewer-program-name = просмотр стримов
+live-stream-broadcaster-program-name = стрим
 
 live-stream-default-title = Без названия
 live-stream-chat-system-sender = Система
@@ -6,6 +7,7 @@ live-stream-chat-started = Трансляция началась.
 live-stream-chat-ended = Трансляция завершена.
 
 live-stream-error-no-camera = Нужна стрим-камера в руке или надетая.
+live-stream-error-no-broadcast-access = Эта программа не умеет запускать трансляции. Нужен картридж стримера.
 live-stream-error-already-streaming = Эта камера уже транслирует.
 live-stream-error-too-many-streams = Сейчас слишком много активных трансляций. Попробуйте позже.
 live-stream-error-not-streaming = Эта трансляция уже закончилась.
