@@ -31,6 +31,10 @@ public sealed partial class LiveStreamUiFragment : BoxContainer
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
 
+        // ScalingViewport defaults ViewportSize to (0, 0), which makes RegenerateViewport() create a
+        // zero-sized render target - the camera feed silently renders nothing instead of erroring.
+        CameraView.ViewportSize = new Vector2i(260, 160);
+
         StartStreamBtn.OnPressed += _ =>
         {
             OnSendMessage?.Invoke(LiveStreamMessageType.StartStream, StreamTitleInput.Text);
