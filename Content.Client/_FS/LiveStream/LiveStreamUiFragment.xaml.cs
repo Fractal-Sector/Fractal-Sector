@@ -94,9 +94,11 @@ public sealed partial class LiveStreamUiFragment : BoxContainer
             StreamerLiveLabel.Text = Loc.GetString("live-stream-live-label", ("title", state.StreamTitle));
             StreamerViewerLabel.Text = Loc.GetString("live-stream-viewer-count-label", ("count", state.ViewerCount));
             RenderChat(StreamerChatContainer, state.ChatMessages, ref _streamerChatRendered);
+            RebuildDonators(StreamerDonatorsList, state.TopDonators);
         }
-        else
+        else if (_streamerChatRendered != 0)
         {
+            StreamerChatContainer.RemoveAllChildren();
             _streamerChatRendered = 0;
         }
 
@@ -105,9 +107,11 @@ public sealed partial class LiveStreamUiFragment : BoxContainer
             ViewerStreamerLabel.Text = Loc.GetString("live-stream-watching-label", ("name", state.WatchedStreamerName));
             ViewerLiveLabel.Text = Loc.GetString("live-stream-viewer-count-label", ("count", 0));
             RenderChat(ViewerChatContainer, state.ChatMessages, ref _viewerChatRendered);
+            RebuildDonators(ViewerDonatorsList, state.TopDonators);
         }
-        else
+        else if (_viewerChatRendered != 0)
         {
+            ViewerChatContainer.RemoveAllChildren();
             _viewerChatRendered = 0;
         }
 
@@ -174,6 +178,26 @@ public sealed partial class LiveStreamUiFragment : BoxContainer
             return;
 
         Robust.Shared.Timing.Timer.Spawn(250, () => TryResolveCameraEye(netEntity, retriesLeft - 1, token), token);
+    }
+
+    private static void RebuildDonators(BoxContainer container, List<LiveStreamDonatorInfo> donators)
+    {
+        container.RemoveAllChildren();
+
+        if (donators.Count == 0)
+        {
+            container.AddChild(new Label { Text = Loc.GetString("live-stream-top-donators-empty") });
+            return;
+        }
+
+        foreach (var donator in donators)
+        {
+            container.AddChild(new Label
+            {
+                Text = Loc.GetString("live-stream-top-donators-entry", ("name", donator.Name), ("amount", donator.Amount)),
+                ClipText = true,
+            });
+        }
     }
 
     private void RebuildStreamList(List<LiveStreamInfo> streams)
