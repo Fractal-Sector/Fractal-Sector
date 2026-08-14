@@ -506,3 +506,12 @@ Entries:
   id: 43
   time: '2026-08-13T17:14:21.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/73
+- author: Zscreeper
+  changes:
+    - type: Add
+      message: Добавлено веселье к копке!
+    - type: Tweak
+      message: Изменен снаряд у РТК-800 Дематериализатор материи
+  id: 44
+  time: '2026-08-14T14:32:26.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/74
