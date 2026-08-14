@@ -302,6 +302,12 @@ public sealed partial class DoorComponent : Component
     /// </summary>
     [DataField, ViewVariables(VVAccess.ReadWrite)]
     public bool RemoteCompatible = true;
+
+    /// <summary>
+    /// FS: Sparks during hacking
+    /// </summary>
+    [DataField]
+    public bool WireCutSparks = true;
 }
 
 [Serializable, NetSerializable]

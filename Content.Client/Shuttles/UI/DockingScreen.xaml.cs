@@ -8,6 +8,7 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Client.UserInterface.XAML;
 using Robust.Shared.Utility;
+using Robust.Shared.Timing;
 
 namespace Content.Client.Shuttles.UI;
 
@@ -16,6 +17,19 @@ public sealed partial class DockingScreen : BoxContainer
 {
     [Dependency] private readonly IEntityManager _entManager = default!;
     private readonly SharedShuttleSystem _shuttles;
+    private readonly SharedTransformSystem _transform; // Far Horizons
+    private readonly SharedDockingSystem _dock; // Far Horizons
+
+    // Far Horizons start
+    const float MaxDockDistanceSq = SharedDockingSystem.DockRange * SharedDockingSystem.DockRange;
+    private static LocId autoDockLabel = "shuttle-console-autodock";
+    private static LocId autoUnDockLabel = "shuttle-console-autoundock";
+    private bool _docked;
+    private bool _dockable;
+
+    private NetEntity? _shuttleNEnt;
+    private List<DockingPortState> _docks = [];
+    // Far Horizons end
 
     /// <summary>
     /// Stored by GridID then by docks
@@ -31,11 +45,16 @@ public sealed partial class DockingScreen : BoxContainer
     public event Action<NetEntity>? UndockRequest;
     public event Action<List<NetEntity>>? UndockAllRequest;
 
+    private void InitAutodock() =>
+        FHAutoDock.OnPressed += AutoDockRequest; // Far Horizons
+
     public DockingScreen()
     {
         RobustXamlLoader.Load(this);
         IoCManager.InjectDependencies(this);
         _shuttles = _entManager.System<SharedShuttleSystem>();
+        _transform = _entManager.System<SharedTransformSystem>(); // Far Horizons
+        _dock = _entManager.System<SharedDockingSystem>(); // Far Horizons
 
         DockingControl.OnViewDock += OnView;
         DockingControl.DockRequest += (entity, netEntity) =>
@@ -47,7 +66,7 @@ public sealed partial class DockingScreen : BoxContainer
             UndockRequest?.Invoke(entity);
         };
 
-        UndockAllButton.OnPressed += _ => OnUndockAllPressed();
+        InitAutodock(); // Far Horizons
     }
 
     private void OnUndockAllPressed()
@@ -61,7 +80,7 @@ public sealed partial class DockingScreen : BoxContainer
             return;
 
         var dockedPorts = new List<NetEntity>();
-        
+
         foreach (var dock in shuttleDocks)
         {
             if (dock.Connected)
@@ -90,7 +109,7 @@ public sealed partial class DockingScreen : BoxContainer
         DockingControl.DockState = state;
         DockingControl.GridEntity = shuttle;
         BuildDocks(shuttle);
-        
+
         // Enable the undock all button only if there are docked ports
         var hasDockedPorts = false;
         if (shuttle != null)
@@ -101,8 +120,7 @@ public sealed partial class DockingScreen : BoxContainer
                 hasDockedPorts = shuttleDocks.Any(d => d.Connected);
             }
         }
-        
-        UndockAllButton.Disabled = !hasDockedPorts;
+
     }
 
     private void BuildDocks(EntityUid? shuttle)
@@ -112,6 +130,7 @@ public sealed partial class DockingScreen : BoxContainer
         // DockedWith.DisposeAllChildren();
         DockPorts.DisposeAllChildren();
         _ourDockButtons.Clear();
+        SetAutodockState(shuttle); // Far Horizons
 
         if (shuttle == null)
         {
@@ -219,4 +238,119 @@ public sealed partial class DockingScreen : BoxContainer
     {
         DockingControl.SetViewedDock(state);
     }
+
+    // Far Horizons start
+    protected override void FrameUpdate(FrameEventArgs args)
+    {
+        if (_shuttleNEnt == null)
+            return;
+
+        SetDocked();
+        SetDockable();
+        UpdateAutodockButton();
+    }
+
+    private void SetAutodockState(EntityUid? shuttle)
+    {
+        if (shuttle == null)
+            return;
+
+        _shuttleNEnt = _entManager.GetNetEntity(shuttle.Value);
+        if (_shuttleNEnt == null || !Docks.TryGetValue(_shuttleNEnt.Value, out var shuttleDocks) || shuttleDocks.Count <= 0)
+            return;
+        _docks = shuttleDocks;
+    }
+
+    private void SetDocked() =>
+        _docked = _docks.Any(dock => dock.Connected);
+
+    private void SetDockable()
+    {
+        _dockable = false;
+
+        if (_docked)
+        {
+            _dockable = true;
+            return;
+        }
+
+        foreach (var dock in _docks)
+        {
+            var dockCoords = _entManager.GetCoordinates(dock.Coordinates);
+            var dockMapCoords = _transform.ToMapCoordinates(dockCoords);
+            var dockRot = _transform.GetWorldRotation(dockCoords.EntityId) + dock.Angle;
+
+            foreach (var otherDock in Docks.Where(kv => kv.Key != _shuttleNEnt).SelectMany(kv => kv.Value))
+            {
+                var otherDockCoords = _entManager.GetCoordinates(otherDock.Coordinates);
+                var otherDockMapCoords = _transform.ToMapCoordinates(otherDockCoords);
+
+                var distanceSq = (dockMapCoords.Position - otherDockMapCoords.Position).LengthSquared();
+
+                if (distanceSq > MaxDockDistanceSq)
+                    continue;
+
+                var otherDockRot = _transform.GetWorldRotation(otherDockCoords.EntityId) + otherDock.Angle;
+                if (!_dock.InAlignment(dockMapCoords, dockRot, otherDockMapCoords, otherDockRot)) continue;
+
+                _dockable = true;
+                return;
+            }
+        }
+    }
+
+    private void UpdateAutodockButton()
+    {
+        FHAutoDock.Text = Loc.GetString(_docked ? autoUnDockLabel : autoDockLabel);
+        FHAutoDock.Disabled = !_dockable;
+    }
+
+    private void AutoDockRequest(BaseButton.ButtonEventArgs args)
+    {
+        if (_shuttleNEnt == null ||
+            !_dockable)
+            return;
+
+        if (_docked)
+        {
+            UndockAll();
+            return;
+        }
+
+        DockAll();
+    }
+
+    private void UndockAll()
+    {
+        foreach (var dock in _docks.Where(dock => dock.Connected))
+            UndockRequest?.Invoke(dock.Entity);
+    }
+
+    private void DockAll()
+    {
+        foreach (var dock in _docks)
+        {
+            var dockCoords = _entManager.GetCoordinates(dock.Coordinates);
+            var dockMapCoords = _transform.ToMapCoordinates(dockCoords);
+            var dockRot = _transform.GetWorldRotation(dockCoords.EntityId) + dock.Angle;
+
+            foreach (var otherDock in Docks.Where(kv => kv.Key != _shuttleNEnt).SelectMany(kv => kv.Value))
+            {
+                var otherDockCoords = _entManager.GetCoordinates(otherDock.Coordinates);
+                var otherDockMapCoords = _transform.ToMapCoordinates(otherDockCoords);
+
+                var distanceSq = (dockMapCoords.Position - otherDockMapCoords.Position).LengthSquared();
+
+                if (distanceSq > MaxDockDistanceSq)
+                    continue;
+
+                var otherDockRot = _transform.GetWorldRotation(otherDockCoords.EntityId) + otherDock.Angle;
+                if (!_dock.InAlignment(dockMapCoords, dockRot, otherDockMapCoords, otherDockRot))
+                    continue;
+
+                DockRequest?.Invoke(dock.Entity, otherDock.Entity);
+            }
+        }
+    }
+    // Far Horizons end
 }

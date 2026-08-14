@@ -1,0 +1,22 @@
+name: Auto Create Issue from Discord Forum
+on:
+  repository_dispatch:
+    types: [discord_new_post]
+
+jobs:
+  create_issue:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Create GitHub Issue
+        uses: imjohnbo/issue-bot@v3
+        with:
+          title: "${{ github.event.client_payload.thread_name }}"
+          body: |
+            ### Предложение по игре
+            
+            ${{ github.event.client_payload.message_content }}
+            
+            ---
+            _Автор в Discord: ${{ github.event.client_payload.author_name }}_
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

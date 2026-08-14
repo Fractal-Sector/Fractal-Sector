@@ -31,6 +31,6 @@
 
 - type: loadout
   id: WFCorporationCartridge
-  price: 100
+  price: 5000
   cartridges:
   - CorporationCartridge

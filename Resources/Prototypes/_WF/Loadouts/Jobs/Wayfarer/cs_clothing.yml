@@ -1014,13 +1014,6 @@
   groupBy: "csBunny"
 
 - type: loadout
-  id: WFCSClothesSexyclown
-  price: 500
-  equipment:
-    jumpsuit: CSClothesSexyclown
-  groupBy: "csRisque"
-
-- type: loadout
   id: WFCSClothesDougDimmadome
   price: 500
   equipment:
@@ -1062,13 +1055,6 @@
   groupBy: "csRisque"
 
 - type: loadout
-  id: WFCSClothesSexymime
-  price: 500
-  equipment:
-    jumpsuit: CSClothesSexymime
-  groupBy: "csRisque"
-
-- type: loadout
   id: WFCSClothesSexynursesuit
   price: 500
   equipment:
@@ -1086,13 +1072,6 @@
   price: 500
   equipment:
     jumpsuit: CSClothesPolyPerformer
-  groupBy: "csRisque"
-
-- type: loadout
-  id: WFCSClothesSecstripper
-  price: 500
-  equipment:
-    jumpsuit: CSClothesSecstripper
   groupBy: "csRisque"
 
 - type: loadout

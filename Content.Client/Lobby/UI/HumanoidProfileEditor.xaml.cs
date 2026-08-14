@@ -237,6 +237,10 @@ namespace Content.Client.Lobby.UI
             #endregion HeightWidth
             // End Wayfarer
 
+            // FS: bark voice
+            InitializeVoiceBark();
+            // End FS
+
             // FS: species window
             #region SpeciesWindow
             NewSpeciesButton.OnToggled += args =>
@@ -845,6 +849,7 @@ namespace Content.Client.Lobby.UI
             UpdateSkinColor();
             UpdateSpawnPriorityControls();
             UpdateHeightWidthSliders(); // Wayfarer
+            UpdateVoiceBarkControls(); // FS
             UpdateAgeEdit();
             UpdateCustomSpecieNameEdit();
             UpdateEyePickers();

@@ -1,5 +1,7 @@
 using Content.Client.Administration.Managers;
 using Content.Client.Audio;
+using Content.Shared._FS.CCVar; // FS
+using Content.Shared._FS.VoiceBark; // FS
 using Content.Shared._NF.CCVar; // Frontier
 using Content.Shared._Mono.CCVar; // Mono
 using Content.Shared.CCVar;
@@ -72,6 +74,26 @@ public sealed partial class AudioTab : Control
             SliderMaxAmbienceSounds,
             _cfg.GetCVar(CCVars.MinMaxAmbientSourcesConfigured),
             _cfg.GetCVar(CCVars.MaxMaxAmbientSourcesConfigured));
+
+        // FS: bark voice
+        Control.AddOptionPercentSlider(
+            FSCVars.VoiceBarkVolume,
+            SliderVolumeVoiceBark);
+
+        Control.AddOptionSlider(
+            FSCVars.VoiceBarkLimit,
+            SliderLimitVoiceBark,
+            0,
+            128);
+
+        Control.AddOptionDropDown(
+            FSCVars.VoiceBarkType,
+            DropDownVoiceBarkType,
+            [
+                new(CharacterVoiceType.None, Loc.GetString("char-voice-bark-none")),
+                new(CharacterVoiceType.Bark, Loc.GetString("char-voice-bark-bark")),
+            ]);
+        // End FS
 
         // Mono begin - combat music options commented out
         /*Control.AddOptionPercentSlider(

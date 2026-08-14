@@ -15,7 +15,7 @@ namespace Content.Server.Database.Migrations.Sqlite
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
+            modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
 
             modelBuilder.Entity("Content.Server.Database.Admin", b =>
                 {
@@ -840,6 +840,27 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Property<int>("BankBalance")
                         .HasColumnType("INTEGER")
                         .HasColumnName("bank_balance");
+
+                    b.Property<byte>("BarkPause")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bark_pause");
+
+                    b.Property<byte>("BarkPitch")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bark_pitch");
+
+                    b.Property<byte>("BarkPitchVariance")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bark_pitch_variance");
+
+                    b.Property<string>("BarkVoice")
+                        .IsRequired()
+                        .HasColumnType("TEXT")
+                        .HasColumnName("bark_voice");
+
+                    b.Property<byte>("BarkVolume")
+                        .HasColumnType("INTEGER")
+                        .HasColumnName("bark_volume");
 
                     b.Property<string>("CharacterConsentFreetext")
                         .IsRequired()
@@ -2528,17 +2549,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Navigation("Goal");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
-                {
-                    b.HasOne("Content.Server.Database.Profile", "Profile")
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .HasConstraintName("FK_wayfarer_safety_deposit_box_profile_profile_id");
-
-                    b.Navigation("Profile");
-                });
-
             modelBuilder.Entity("Content.Server.Database.WayfarerCorporationInvite", b =>
                 {
                     b.HasOne("Content.Server.Database.WayfarerCorporation", "Corporation")
@@ -2573,6 +2583,17 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasConstraintName("FK_wayfarer_corporation_stations_wayfarer_corporations_corporation_id");
 
                     b.Navigation("Corporation");
+                });
+
+            modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
+                {
+                    b.HasOne("Content.Server.Database.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasConstraintName("FK_wayfarer_safety_deposit_box_profile_profile_id");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBoxItem", b =>

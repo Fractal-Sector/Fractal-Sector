@@ -1,0 +1,28 @@
+# Master menu of bark voices shown in the character editor.
+# No gender/species gating - keep the list flat until real voice packs exist.
+
+- type: voiceBarkList
+  id: Default
+  voiceList:
+  - Default
+  - Meow
+  - Mtt
+  - Flowey
+  - Txt1
+  - TxtAl
+  - TxtAsg
+  - TxtAsr
+  - TxtBer
+  - TxtJok
+  - TxtLan
+  - TxtNoe
+  - TxtPap
+  - TxtQueen
+  - TxtSans
+  - TxtSpam
+  - TxtSus
+  - TxtTor
+  - TxtUnd
+  - Gav
+  - Tem
+  - Tenna

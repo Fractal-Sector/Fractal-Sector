@@ -1,5 +1,6 @@
 using System.Linq;
 using System.Text.RegularExpressions;
+using Content.Shared._FS.VoiceBark;
 using Content.Shared._NF.Bank;
 using Content.Shared.CCVar;
 using Content.Shared.GameTicking;
@@ -129,6 +130,38 @@ namespace Content.Shared.Preferences
         public float Width { get; private set; } = 1f;
         // End Wayfarer
 
+        // FS: bark voice settings
+        /// <summary>
+        /// The selected <see cref="VoiceBarkPrototype"/> ID for this character.
+        /// </summary>
+        [DataField]
+        public string BarkVoice { get; private set; } = VoiceBarkPrototype.DefaultId;
+
+        [DataField]
+        public byte BarkPitch { get; private set; } = byte.MaxValue / 2;
+
+        [DataField]
+        public byte BarkPitchVariance { get; private set; } = byte.MaxValue / 2;
+
+        [DataField]
+        public byte BarkPause { get; private set; } = byte.MaxValue / 2;
+
+        [DataField]
+        public byte BarkVolume { get; private set; } = byte.MaxValue / 2;
+
+        /// <summary>
+        /// Convenience bundle of the 4 percentage sliders above, for code that
+        /// wants to pass/compare them as one value.
+        /// </summary>
+        public VoiceBarkPercentageApplyData BarkSettings => new()
+        {
+            Pitch = BarkPitch,
+            PitchVariance = BarkPitchVariance,
+            Pause = BarkPause,
+            Volume = BarkVolume,
+        };
+        // End FS
+
         /// <summary>
         /// <see cref="_jobPriorities"/>
         /// </summary>
@@ -219,6 +252,14 @@ namespace Content.Shared.Preferences
             Height = other.Height;
             Width = other.Width;
             // End Wayfarer
+
+            // FS: preserve bark voice settings in copy
+            BarkVoice = other.BarkVoice;
+            BarkPitch = other.BarkPitch;
+            BarkPitchVariance = other.BarkPitchVariance;
+            BarkPause = other.BarkPause;
+            BarkVolume = other.BarkVolume;
+            // End FS
         }
 
         /// <summary>
@@ -362,6 +403,20 @@ namespace Content.Shared.Preferences
             return new(this) { Width = width };
         }
         // End Wayfarer
+
+        // FS
+        public HumanoidCharacterProfile WithBarkVoice(string barkVoice, VoiceBarkPercentageApplyData? settings = null)
+        {
+            return new(this)
+            {
+                BarkVoice = barkVoice,
+                BarkPitch = settings?.Pitch ?? BarkPitch,
+                BarkPitchVariance = settings?.PitchVariance ?? BarkPitchVariance,
+                BarkPause = settings?.Pause ?? BarkPause,
+                BarkVolume = settings?.Volume ?? BarkVolume,
+            };
+        }
+        // End FS
 
         public HumanoidCharacterProfile WithJobPriorities(IEnumerable<KeyValuePair<ProtoId<JobPrototype>, JobPriority>> jobPriorities)
         {
@@ -530,6 +585,11 @@ namespace Content.Shared.Preferences
             if (SpawnPriority != other.SpawnPriority) return false;
             if (Math.Abs(Height - other.Height) > 0.001f) return false; // Wayfarer
             if (Math.Abs(Width - other.Width) > 0.001f) return false; // Wayfarer
+            if (BarkVoice != other.BarkVoice) return false; // FS
+            if (BarkPitch != other.BarkPitch) return false; // FS
+            if (BarkPitchVariance != other.BarkPitchVariance) return false; // FS
+            if (BarkPause != other.BarkPause) return false; // FS
+            if (BarkVolume != other.BarkVolume) return false; // FS
             if (!_jobPriorities.SequenceEqual(other._jobPriorities)) return false;
             if (!_antagPreferences.SequenceEqual(other._antagPreferences)) return false;
             if (!_traitPreferences.SequenceEqual(other._traitPreferences)) return false;
@@ -640,6 +700,12 @@ namespace Content.Shared.Preferences
             var width = Math.Clamp(Width, speciesPrototype.MinWidth, speciesPrototype.MaxWidth);
             // End Wayfarer
 
+            // FS: fall back to the default bark voice if the chosen one no longer exists
+            var barkVoice = prototypeManager.HasIndex<VoiceBarkPrototype>(BarkVoice)
+                ? BarkVoice
+                : VoiceBarkPrototype.DefaultId;
+            // End FS
+
             var prefsUnavailableMode = PreferenceUnavailable switch
             {
                 PreferenceUnavailableMode.StayInLobby => PreferenceUnavailableMode.StayInLobby,
@@ -694,6 +760,7 @@ namespace Content.Shared.Preferences
             SpawnPriority = spawnPriority;
             Height = height; // Wayfarer
             Width = width; // Wayfarer
+            BarkVoice = barkVoice; // FS
 
             _jobPriorities.Clear();
 
