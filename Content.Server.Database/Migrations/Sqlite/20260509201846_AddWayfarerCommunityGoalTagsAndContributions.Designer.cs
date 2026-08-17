@@ -3,6 +3,7 @@ using System;
 using Content.Server.Database;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,12 +11,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Content.Server.Database.Migrations.Sqlite
 {
     [DbContext(typeof(SqliteServerDbContext))]
-    partial class SqliteServerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260509201846_AddWayfarerCommunityGoalTagsAndContributions")]
+    partial class AddWayfarerCommunityGoalTagsAndContributions
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
-            modelBuilder.HasAnnotation("ProductVersion", "10.0.0");
+            modelBuilder.HasAnnotation("ProductVersion", "9.0.1");
 
             modelBuilder.Entity("Content.Server.Database.Admin", b =>
                 {
@@ -841,27 +844,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("bank_balance");
 
-                    b.Property<byte>("BarkPause")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("bark_pause");
-
-                    b.Property<byte>("BarkPitch")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("bark_pitch");
-
-                    b.Property<byte>("BarkPitchVariance")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("bark_pitch_variance");
-
-                    b.Property<string>("BarkVoice")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("bark_voice");
-
-                    b.Property<byte>("BarkVolume")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("bark_volume");
-
                     b.Property<string>("CharacterConsentFreetext")
                         .IsRequired()
                         .HasColumnType("TEXT")
@@ -1551,10 +1533,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasColumnType("INTEGER")
                         .HasColumnName("goal_id");
 
-                    b.Property<bool>("IsKillOrder")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("is_kill_order");
-
                     b.Property<long>("RequiredAmount")
                         .HasColumnType("INTEGER")
                         .HasColumnName("required_amount");
@@ -1570,148 +1548,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                         .HasDatabaseName("IX_wayfarer_community_goal_requirements_goal_id");
 
                     b.ToTable("wayfarer_community_goal_requirements", (string)null);
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("id");
-
-                    b.Property<int>("Balance")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("balance");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("created_at");
-
-                    b.Property<string>("Description")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("description");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("name");
-
-                    b.Property<int>("Privacy")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("privacy");
-
-                    b.HasKey("Id")
-                        .HasName("PK_wayfarer_corporations");
-
-                    b.HasIndex("Name")
-                        .IsUnique();
-
-                    b.ToTable("wayfarer_corporations", (string)null);
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationInvite", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("id");
-
-                    b.Property<int>("CorporationId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("corporation_id");
-
-                    b.Property<Guid>("InviteeUserId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("invitee_user_id");
-
-                    b.Property<DateTime>("SentAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("sent_at");
-
-                    b.HasKey("Id")
-                        .HasName("PK_wayfarer_corporation_invites");
-
-                    b.HasIndex("CorporationId")
-                        .HasDatabaseName("IX_wayfarer_corporation_invites_corporation_id");
-
-                    b.HasIndex("InviteeUserId");
-
-                    b.ToTable("wayfarer_corporation_invites", (string)null);
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationMember", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("id");
-
-                    b.Property<int>("CorporationId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("corporation_id");
-
-                    b.Property<string>("DisplayName")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("display_name");
-
-                    b.Property<DateTime>("JoinedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("joined_at");
-
-                    b.Property<int>("Rank")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("rank");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("user_id");
-
-                    b.HasKey("Id")
-                        .HasName("PK_wayfarer_corporation_members");
-
-                    b.HasIndex("CorporationId")
-                        .HasDatabaseName("IX_wayfarer_corporation_members_corporation_id");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("wayfarer_corporation_members", (string)null);
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationStation", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("id");
-
-                    b.Property<int>("CorporationId")
-                        .HasColumnType("INTEGER")
-                        .HasColumnName("corporation_id");
-
-                    b.Property<DateTime>("PurchasedAt")
-                        .HasColumnType("TEXT")
-                        .HasColumnName("purchased_at");
-
-                    b.Property<string>("SavePath")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("save_path");
-
-                    b.Property<string>("StationName")
-                        .IsRequired()
-                        .HasColumnType("TEXT")
-                        .HasColumnName("station_name");
-
-                    b.HasKey("Id")
-                        .HasName("PK_wayfarer_corporation_stations");
-
-                    b.HasIndex("CorporationId")
-                        .IsUnique()
-                        .HasDatabaseName("IX_wayfarer_corporation_stations_corporation_id");
-
-                    b.ToTable("wayfarer_corporation_stations", (string)null);
                 });
 
             modelBuilder.Entity("Content.Server.Database.WayfarerRoleplayCommend", b =>
@@ -2556,42 +2392,6 @@ namespace Content.Server.Database.Migrations.Sqlite
                     b.Navigation("Goal");
                 });
 
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationInvite", b =>
-                {
-                    b.HasOne("Content.Server.Database.WayfarerCorporation", "Corporation")
-                        .WithMany("PendingInvites")
-                        .HasForeignKey("CorporationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_wayfarer_corporation_invites_wayfarer_corporations_corporation_id");
-
-                    b.Navigation("Corporation");
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationMember", b =>
-                {
-                    b.HasOne("Content.Server.Database.WayfarerCorporation", "Corporation")
-                        .WithMany("Members")
-                        .HasForeignKey("CorporationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_wayfarer_corporation_members_wayfarer_corporations_corporation_id");
-
-                    b.Navigation("Corporation");
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporationStation", b =>
-                {
-                    b.HasOne("Content.Server.Database.WayfarerCorporation", "Corporation")
-                        .WithMany()
-                        .HasForeignKey("CorporationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired()
-                        .HasConstraintName("FK_wayfarer_corporation_stations_wayfarer_corporations_corporation_id");
-
-                    b.Navigation("Corporation");
-                });
-
             modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
                 {
                     b.HasOne("Content.Server.Database.Profile", "Profile")
@@ -2756,13 +2556,6 @@ namespace Content.Server.Database.Migrations.Sqlite
             modelBuilder.Entity("Content.Server.Database.WayfarerCommunityGoalRequirement", b =>
                 {
                     b.Navigation("Contributions");
-                });
-
-            modelBuilder.Entity("Content.Server.Database.WayfarerCorporation", b =>
-                {
-                    b.Navigation("Members");
-
-                    b.Navigation("PendingInvites");
                 });
 
             modelBuilder.Entity("Content.Server.Database.WayfarerSafetyDepositBox", b =>
