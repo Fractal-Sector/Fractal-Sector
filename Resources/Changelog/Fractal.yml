@@ -524,3 +524,14 @@ Entries:
   id: 45
   time: '2026-08-17T06:51:41.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/75
+- author: IsNotAcceptable
+  changes:
+    - type: Tweak
+      message: Изменено поведение призраков, запускающих шаттлы, на активное состояние.
+    - type: Tweak
+      message: >-
+        Изменено время, необходимое для переключения кораблей из
+        активного/неактивного состояния.
+  id: 46
+  time: '2026-08-17T06:52:54.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/76
