@@ -515,3 +515,12 @@ Entries:
   id: 44
   time: '2026-08-14T14:32:26.0000000+00:00'
   url: https://github.com/Fractal-Sector/Fractal-Sector/pull/74
+- author: IsNotAcceptable
+  changes:
+    - type: Add
+      message: >-
+        Добавлена ​​возможность поддержки прототипов в рамках тега и приказов на
+        уничтожение для целей сообщества.
+  id: 45
+  time: '2026-08-17T06:51:41.0000000+00:00'
+  url: https://github.com/Fractal-Sector/Fractal-Sector/pull/75
