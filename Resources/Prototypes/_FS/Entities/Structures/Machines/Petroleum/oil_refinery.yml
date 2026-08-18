@@ -1,0 +1,244 @@
+# =============================================================================
+# НПЗ - Нефтеперерабатывающий завод
+#
+# Схема размещения (M = мастер):
+#
+#          [Input ]  [Gas  ]
+#  [Heavy ] [ M   ] [Light ]
+#          [Naph  ]
+#
+# Смещения (от мастера):
+#   Input   ( 0, +1) - нефть поступает с Севера по plumbing-трубе
+#   Gas     (+1, +1) - газ выходит через атмос-трубу на Восток
+#   Light   (+1,  0) - лёгкая нефть выходит на Восток по plumbing
+#   Heavy   (-1,  0) - мазут выходит на Запад по plumbing
+#   Naphtha ( 0, -1) - нафта выходит на Юг по plumbing
+#
+# Мастер сам к трубам НЕ подключён. Все соединения - через модули.
+# Завод запускается, как только привязан хотя бы Input-модуль.
+# Остальные модули опциональны - без них просто нет соответствующего продукта.
+# =============================================================================
+
+# =============================================================================
+# 1. МАСТЕР-БЛОК
+# Только логика + питание. Никаких труб.
+# =============================================================================
+- type: entity
+  parent: BaseMachinePowered
+  id: OilRefineryMaster
+  name: "НПЗ - Блок управления"
+  description: >
+    Центральный модуль нефтеперерабатывающего завода. Принимает горячую сырую нефть
+    от входного модуля и разделяет её на фракции. Требует питания.
+    Серные фильтры необходимо периодически очищать вручную.
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/jukebox.rsi
+    layers:
+    - state: off
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisualLayers.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True:  { state: on  }
+          False: { state: off }
+  - type: Appearance
+  - type: OilRefinery
+    minProcessTemp: 500
+    processRate: 10
+    maxSulfurGunk: 100
+    gasMolesPerUnit: 0.5
+    inputOffset:   "0, 1"
+    naphthaOffset: "0, -1"
+    lightOffset:   "1, 0"
+    heavyOffset:   "-1, 0"
+    gasOffset:     "1, 1"
+  - type: ApcPowerReceiver
+    powerLoad: 3000
+
+# =============================================================================
+# 2. ВХОДНОЙ МОДУЛЬ (Input, смещение 0,+1 от мастера)
+# Принимает горячую нефть с Севера по plumbing-трубе.
+# Решение называется "crude" - именно его читает система.
+# =============================================================================
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilRefineryInput
+  name: "НПЗ - Входной модуль"
+  description: "Принимает горячую сырую нефть с Севера. Нефть должна быть нагрета до 500К."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/arcade.rsi
+    layers:
+    - state: arcade
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: OilRefineryPart
+    partType: Input
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingInlet
+    solutionName: crude
+    inletNames: [ inlet ]
+  - type: SolutionContainerManager
+    solutions:
+      crude:
+        maxVol: 300
+        canReact: false
+  - type: ExaminableSolution
+    solution: crude
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+
+# =============================================================================
+# 3. НАФТОВЫЙ МОДУЛЬ (Naphtha, смещение 0,-1 от мастера)
+# Выдаёт нафту на Юг по plumbing.
+# Решение называется "output" - именно в него система льёт нафту.
+# =============================================================================
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilRefineryNaphtha
+  name: "НПЗ - Нафтовый модуль"
+  description: "Выдаёт нафту на Юг. 40% от переработанной нефти."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/autolathe.rsi
+    layers:
+    - state: icon
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: OilRefineryPart
+    partType: Naphtha
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingOutlet
+    solutionName: output
+  - type: SolutionContainerManager
+    solutions:
+      output:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: output
+  - type: NodeContainer
+    nodes:
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+
+# =============================================================================
+# 4. МОДУЛЬ ЛЁГКОЙ НЕФТИ (Light, смещение +1,0 от мастера)
+# Выдаёт лёгкую нефть на Восток по plumbing.
+# =============================================================================
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilRefineryLight
+  name: "НПЗ - Модуль лёгкой фракции"
+  description: "Выдаёт лёгкую нефть на Восток. 30% от переработанной нефти."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/autolathe.rsi
+    layers:
+    - state: icon
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: OilRefineryPart
+    partType: Light
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingOutlet
+    solutionName: output
+  - type: SolutionContainerManager
+    solutions:
+      output:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: output
+  - type: NodeContainer
+    nodes:
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: East
+
+# =============================================================================
+# 5. МОДУЛЬ МАЗУТА (Heavy, смещение -1,0 от мастера)
+# Выдаёт тяжёлую нефть (мазут) на Запад по plumbing.
+# =============================================================================
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilRefineryHeavy
+  name: "НПЗ - Модуль тяжёлой фракции"
+  description: "Выдаёт мазут (тяжёлую нефть) на Запад. 20% от переработанной нефти."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/autolathe.rsi
+    layers:
+    - state: icon
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: OilRefineryPart
+    partType: Heavy
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingOutlet
+    solutionName: output
+  - type: SolutionContainerManager
+    solutions:
+      output:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: output
+  - type: NodeContainer
+    nodes:
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: West
+
+# =============================================================================
+# 6. ГАЗОВЫЙ МОДУЛЬ (Gas, смещение +1,+1 от мастера)
+#
+# Модуль накапливает моли (PendingMoles), которые мастер пишет при переработке,
+# и сбрасывает их в атмос-трубу при AtmosDeviceUpdateEvent.
+#
+# На тайле: AtmosDevice + PipeNode (atmos), OilRefineryPart + OilRefineryGasOutlet.
+# НЕТ SolutionContainerManager, PlumbingOutlet, PlumbingDevice.
+# =============================================================================
+- type: entity
+  parent: BaseMachine
+  id: OilRefineryGas
+  name: "НПЗ - Газовый модуль"
+  description: "Выдаёт попутный нефтяной газ в атмос-трубу на Восток. 10% от переработанной нефти."
+  components:
+  - type: Sprite
+    sprite: Structures/Machines/autolathe.rsi
+    layers:
+    - state: icon
+  - type: Appearance
+  - type: AtmosPipeColor
+  - type: OilRefineryPart
+    partType: Gas
+  - type: OilRefineryGasOutlet
+    pipeNodeName: pipe
+    gasReleaseTemp: 400
+  - type: AtmosDevice
+  - type: NodeContainer
+    nodes:
+      pipe:
+        !type:PipeNode
+        nodeGroupID: Pipe
+        pipeDirection: East
+        volume: 20

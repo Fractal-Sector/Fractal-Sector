@@ -1,0 +1,22 @@
+- type: entity
+  id: OilDeposit
+  name: "месторождение неочищенной нефти"
+  description: "Глубокие подземные залежи углеводородов. Сюда необходимо установить буровую установку для выкачивания сырья."
+  placement:
+    mode: SnapgridCenter
+  components:
+  - type: Transform
+    anchored: true
+  - type: Clickable
+  - type: Physics
+    bodyType: Static
+    canCollide: false
+  - type: Fixtures
+  - type: Sprite
+    drawdepth: FloorTiles
+    sprite: _FS/Objects/Specific/Petroleum/deposit.rsi
+    state: deposit
+  - type: LiquidDeposit
+    reagentId: CrudeOil
+    amount: 15000
+    maxAmount: 25000

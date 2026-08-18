@@ -1,0 +1,54 @@
+- type: entity
+  parent: SheetOtherBase
+  id: SheetSulfur
+  name: сера
+  suffix: Full
+  components:
+  - type: Material
+  - type: Stack
+    stackType: Sulfur
+    baseLayer: base
+    layerStates:
+    - sulfur
+    - sulfur_2
+    - sulfur_3
+  - type: Sprite
+    state: sulfur_3
+    layers:
+    - state: sulfur_3
+      map: ["base"]
+  - type: Item
+    heldPrefix: sulfur
+  - type: Appearance
+  - type: Extractable
+    grindableSolutionName: sulfur
+  - type: SolutionContainerManager
+    solutions:
+      sulfur:
+        reagents:
+        - ReagentId: Sulfur
+          Quantity: 10
+        canReact: false
+  - type: Tag
+    tags:
+    - Sheet
+
+- type: entity
+  parent: SheetSulfur
+  id: SheetSulfur10
+  suffix: 10
+  components:
+  - type: Sprite
+    state: sulfur
+  - type: Stack
+    count: 10
+
+- type: entity
+  parent: SheetSulfur
+  id: SheetSulfur1
+  suffix: Single
+  components:
+  - type: Sprite
+    state: sulfur
+  - type: Stack
+    count: 1

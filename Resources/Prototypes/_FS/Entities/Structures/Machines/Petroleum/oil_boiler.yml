@@ -1,0 +1,60 @@
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilBoiler
+  name: "проточный жидкостный бойлер"
+  description: "Индустриальный теплообменник. Нагревает проходящие через него жидкости до высоких температур. Требует подключения к электросети."
+  components:
+  - type: Sprite
+    sprite: Structures/Piping/Atmospherics/thermomachine.rsi
+    layers:
+    - state: heaterOff
+      map: [ "enum.PlumbingVisualLayers.Base" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.PlumbingVisuals.Running:
+        enum.PlumbingVisualLayers.Base:
+          True: { state: heaterOn }
+          False: { state: heaterOff }
+  - type: LiquidHeaterCooler
+    mode: Off
+    processRate: 15
+    solutionId: buffer
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingInlet
+    solutionName: buffer
+    inletNames: [ inletNorth ]
+  - type: PlumbingOutlet
+    solutionName: buffer
+  - type: SolutionContainerManager
+    solutions:
+      buffer:
+        maxVol: 100
+        canReact: false
+  - type: ExaminableSolution
+    solution: buffer
+  - type: NodeContainer
+    nodes:
+      inletNorth:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: ExtensionCableReceiver
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:SpillBehavior
+        solution: buffer
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: StaticPrice
+    price: 200

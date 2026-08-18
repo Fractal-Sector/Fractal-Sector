@@ -70,3 +70,63 @@
   components:
   - type: AutoRecharge
     rechargeDuration: 1
+
+# =============================================================================
+# RPLD (Rapid Plumbing Device) - places plumbing ducts and machines
+# =============================================================================
+- type: entity
+  id: RPLD
+  parent: RCD
+  name: БВУ
+  description: Устройство, используемое для быстрой установки водопроводных труб и оборудования.
+  components:
+  - type: RCD
+    isRPLD: true
+    availablePrototypes:
+    - PlumbingRpldDuctStraight
+    - PlumbingRpldDuctBend
+    - PlumbingRpldDuctTJunction
+    - PlumbingRpldDuctFourway
+    - PlumbingRpldTank
+    - PlumbingRpldInput
+    - PlumbingRpldOutput
+    - PlumbingRpldSink
+    - PlumbingRpldReactor
+    - PlumbingRpldFilter
+    - PlumbingRpldSmartFridge
+    - PlumbingRpldDrain
+    - Deconstruct
+  - type: LimitedCharges
+    maxCharges: 45
+  - type: Sprite
+    sprite: _Starlight/Objects/Tools/rpld.rsi
+
+- type: entity
+  id: RPLDEmpty
+  parent: RPLD
+  suffix: Empty
+  components:
+  - type: LimitedCharges
+    lastCharges: -1
+
+- type: entity
+  id: RPLDRecharging
+  parent: RPLD
+  name: экспериментальный БВУ
+  description: Установленное на киборге устройство быстрого создания сжатого вещества, которое создает сжатое вещество на ходу с помощью внутреннего формовочного устройства.
+  suffix: AutoRecharge
+  components:
+  - type: LimitedCharges
+    maxCharges: 20
+  - type: AutoRecharge
+    rechargeDuration: 10
+
+- type: entity
+  id: RPLDExperimental
+  parent: RPLD
+  suffix: Admeme
+  name: экспериментальный БВУ
+  description: Устройство с блюспейс технологием для быстрого перемещения объектов, пассивно генерирующее собственное сжатое вещество.
+  components:
+  - type: AutoRecharge
+    rechargeDuration: 1

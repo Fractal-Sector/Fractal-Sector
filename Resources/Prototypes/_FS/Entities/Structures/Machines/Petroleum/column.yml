@@ -1,0 +1,55 @@
+- type: entity
+  parent: BaseMachinePowered
+  id: ReactiveColumn
+  name: "Ректификационная колонна"
+  description: >
+    Перегоняет нефтяные фракции в продукты переработки.
+    Рецепты подбираются автоматически по поступающему реагенту.
+  components:
+  - type: Sprite
+    sprite: _FS/Structures/Machines/Petroleum/reactivecolumn.rsi
+    layers:
+    - state: icon
+      map: [ "enum.PowerDeviceVisualLayers.Powered" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.PowerDeviceVisualLayers.Powered:
+        enum.PowerDeviceVisualLayers.Powered:
+          True:  { state: icon }
+          False: { state: icon }
+  - type: Appearance
+  - type: PlumbingConnectorAppearance
+  - type: AtmosPipeColor
+  - type: ReactiveColumn
+    processRate: 5
+    inputSolution: input
+    outputSolution: output
+  - type: ApcPowerReceiver
+    powerLoad: 1500
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingInlet
+    solutionName: input
+    inletNames: [ inlet ]
+  - type: PlumbingOutlet
+    solutionName: output
+  - type: SolutionContainerManager
+    solutions:
+      input:
+        maxVol: 200
+        canReact: false
+      output:
+        maxVol: 200
+        canReact: false
+  - type: ExaminableSolution
+    solution: output
+  - type: NodeContainer
+    nodes:
+      inlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: North
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South

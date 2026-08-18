@@ -1,0 +1,13 @@
+- type: gas
+  id: 11
+  name: gases-petroleum
+  specificHeat: 25
+  heatCapacityRatio: 1.3
+  molarMass: 44
+  gasOverlaySprite: /Textures/_FS/Effects/atmospherics.rsi
+  gasOverlayState: petroleum
+  gasMolesVisible: 1.5
+  gasVisbilityFactor: 3.0
+  color: 7A6B58
+  reagent: Petroleum
+  pricePerMole: 0.3

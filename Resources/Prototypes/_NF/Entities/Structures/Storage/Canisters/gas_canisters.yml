@@ -46,6 +46,7 @@
       - 0 # Frezon
       - 1871.71051 # Respiron
       - 0 # Helium
+      - 0 # Petroleum
       temperature: 293.15
   - type: Destructible
     thresholds:

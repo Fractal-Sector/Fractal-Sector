@@ -26,7 +26,8 @@ namespace Content.Shared.Atmos.Piping.Unary.Components
             Gas.Ammonia,
             Gas.NitrousOxide,
             Gas.Frezon,
-            Gas.Helium //Frontier
+            Gas.Helium, //Frontier
+            Gas.Petroleum // FS
         };
 
         public static Dictionary<Gas, float> DefaultFilterGasLimits = new()

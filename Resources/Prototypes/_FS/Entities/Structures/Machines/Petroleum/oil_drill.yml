@@ -1,0 +1,53 @@
+- type: entity
+  parent: PlumbingMachineBase
+  id: OilDrill
+  name: "буровая установка для добычи нефти"
+  description: "Тяжелая автоматическая скважина. Устанавливается поверх жидких месторождений для добычи сырой нефти. Выводит сырье на юг."
+  components:
+  - type: Sprite
+    sprite: _Starlight/Structures/Piping/Plumbing/plumbers.rsi
+    layers:
+    - state: pill_press_off
+      map: [ "enum.PlumbingVisualLayers.Base" ]
+  - type: GenericVisualizer
+    visuals:
+      enum.PlumbingVisuals.Running:
+        enum.PlumbingVisualLayers.Base:
+          True: { state: pill_press }
+          False: { state: pill_press_off }
+  - type: OilDrill
+    active: true
+    extractRate: 10
+    solutionId: buffer
+  - type: PlumbingDevice
+    updateInterval: 2
+  - type: PlumbingOutlet
+    solutionName: buffer
+  - type: SolutionContainerManager
+    solutions:
+      buffer:
+        maxVol: 100
+        canReact: false
+  - type: ExaminableSolution
+    solution: buffer
+  - type: NodeContainer
+    nodes:
+      outlet:
+        !type:PlumbingNode
+        nodeGroupID: Plumbing
+        pipeDirection: South
+  - type: ApcPowerReceiver
+    powerLoad: 750
+  - type: ExtensionCableReceiver
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 100
+      behaviors:
+      - !type:SpillBehavior
+        solution: buffer
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+  - type: StaticPrice
+    price: 150

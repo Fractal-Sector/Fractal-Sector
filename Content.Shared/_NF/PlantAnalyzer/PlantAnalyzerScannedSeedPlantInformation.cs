@@ -71,6 +71,9 @@ public enum GasFlags : short
     Ammonia = 64,
     NitrousOxide = 128,
     Frezon = 256,
+    Respiron = 512, // Frontier/FS
+    Helium = 1024, // Frontier/FS
+    Petroleum = 2048, // FS
 }
 
 public enum AnalyzerHarvestType : byte

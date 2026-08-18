@@ -1,0 +1,6 @@
+- type: stack
+  id: Sulfur
+  name: stack-sulfur
+  icon: { sprite: /Textures/Objects/Materials/Sheets/other.rsi, state: sulfur }
+  spawn: SheetSulfur1
+  maxCount: 100

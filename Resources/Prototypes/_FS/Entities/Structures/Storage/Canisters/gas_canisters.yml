@@ -1,0 +1,57 @@
+- type: entity
+  parent: GasCanister
+  id: PetroleumCanister
+  name: Канистра нефтяного газа
+  description: Канистра, способный вместить газ любого типа. В данном случае он предназначен для нефтяного газа. Его можно подсоединить к разъемам с помощью гаечного ключа.
+  components:
+  - type: Sprite
+    layers:
+    - state: petroleum
+  - type: GasCanister
+    gasMixture:
+      volume: 1000
+      moles:
+      - 0 # oxygen
+      - 0 # nitrogen
+      - 0 # CO2
+      - 0 # Plasma
+      - 0 # Tritium
+      - 0 # Water vapor
+      - 0 # Ammonia
+      - 0 # N2O
+      - 0 # Frezon
+      - 0 # Respiron
+      - 0 # Helium
+      - 1871 # Petroleum
+      temperature: 293.15
+  - type: Destructible
+    thresholds:
+    - trigger:
+        !type:DamageTrigger
+        damage: 600
+      behaviors:
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+    - trigger:
+        !type:DamageTrigger
+        damage: 300
+      behaviors:
+      - !type:PlaySoundBehavior
+        sound:
+          collection: MetalBreak
+      - !type:SpawnEntitiesBehavior
+        spawn:
+          RespironCanisterBroken:
+            min: 1
+            max: 1
+      - !type:DoActsBehavior
+        acts: [ "Destruction" ]
+      - !type:DumpCanisterBehavior
+
+- type: entity
+  parent: GasCanisterBrokenBase
+  id: PetroleumCanisterBroken
+  categories: [ HideSpawnMenu ]
+  components:
+  - type: Sprite
+    state: petroleum-1
