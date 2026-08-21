@@ -428,6 +428,8 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         if (sync)
             Dirty(entity);
+
+        RaiseLocalEvent(entity.Owner, new HumanoidHeightChangedEvent());
     }
 
     /// <summary>
@@ -474,6 +476,8 @@ public abstract class SharedHumanoidAppearanceSystem : EntitySystem
 
         if (sync)
             Dirty(uid, humanoid);
+
+        RaiseLocalEvent(uid, new HumanoidHeightChangedEvent());
     }
 
     /// <summary>
