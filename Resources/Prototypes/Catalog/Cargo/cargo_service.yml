@@ -1,4 +1,14 @@
 - type: cargoProduct
+  id: ServiceLiveStreamBroadcasterKit
+  icon:
+    sprite: Objects/Devices/camera_bug.rsi
+    state: camera_bug
+  product: CrateLiveStreamBroadcasterKit
+  cost: 1500 # rough estimate, tune to taste - buys a broadcaster cartridge + stream cam
+  category: cargoproduct-category-name-service
+  group: market
+
+- type: cargoProduct
   id: ServiceJanitorial
   icon:
     sprite: Objects/Specific/Janitorial/janitorial.rsi
