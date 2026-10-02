@@ -1,6 +1,3 @@
-using System.Linq;
-using System.Numerics;
-using Content.Client._FS.UI.Buttons;
 using Content.Client._WF.CryoSleep; // Wayfarer: Character resume from cryosleep
 using Content.Client._NF.LateJoin;
 using Content.Client.Audio;
@@ -9,7 +6,6 @@ using Content.Client.GameTicking.Managers;
 using Content.Client.Lobby.UI;
 using Content.Client.Message;
 using Content.Client.Playtime;
-using Content.Client.Resources;
 using Content.Client.UserInterface.Systems.Chat;
 using Content.Client.Voting;
 using Content.Shared.CCVar;
@@ -21,7 +17,6 @@ using Robust.Client.UserInterface;
 using Robust.Client.UserInterface.Controls;
 using Robust.Shared.Configuration;
 using Robust.Shared.Timing;
-using Robust.Shared.Utility;
 using PickerWindow = Content.Client._NF.LateJoin.Windows.PickerWindow;
 
 namespace Content.Client.Lobby
@@ -87,7 +82,7 @@ namespace Content.Client.Lobby
 
             UpdateLobbyUi();
 
-            Lobby.CharacterSetupButton.OnPressed += OnSetupPressed;
+            Lobby.CharacterPreview.CharacterSetupButton.OnPressed += OnSetupPressed;
             Lobby.ReadyButton.OnPressed += OnReadyPressed;
             Lobby.ReadyButton.OnToggled += OnReadyToggled;
             Lobby.ResumeButton.OnPressed += OnResumePressed;
@@ -111,7 +106,7 @@ namespace Content.Client.Lobby
 
             _voteManager.ClearPopupContainer();
 
-            Lobby!.CharacterSetupButton.OnPressed -= OnSetupPressed;
+            Lobby!.CharacterPreview.CharacterSetupButton.OnPressed -= OnSetupPressed;
             Lobby!.ReadyButton.OnPressed -= OnReadyPressed;
             Lobby!.ReadyButton.OnToggled -= OnReadyToggled;
             Lobby!.ResumeButton.OnPressed -= OnResumePressed;
@@ -305,7 +300,7 @@ namespace Content.Client.Lobby
         {
             if (_gameTicker.IsGameStarted)
             {
-                MakeButtonJoinGame(Lobby!.ReadyButton);
+                Lobby!.ReadyButton.Text = Loc.GetString("lobby-state-ready-button-join-state");
                 Lobby!.ReadyButton.ToggleMode = false;
                 Lobby!.ReadyButton.Pressed = false;
                 Lobby!.ObserveButton.Disabled = false;
@@ -315,12 +310,8 @@ namespace Content.Client.Lobby
             }
             else
             {
-                if (Lobby!.ReadyButton.Pressed)
-                    MakeButtonReady(Lobby!.ReadyButton);
-                else
-                    MakeButtonUnReady(Lobby!.ReadyButton);
-
                 Lobby!.StartTime.Text = string.Empty;
+                Lobby!.ReadyButton.Text = Loc.GetString(Lobby!.ReadyButton.Pressed ? "lobby-state-player-status-ready": "lobby-state-player-status-not-ready");
                 Lobby!.ReadyButton.ToggleMode = true;
                 Lobby!.ReadyButton.Disabled = false;
                 Lobby!.ReadyButton.Pressed = _gameTicker.AreWeReady;
@@ -385,7 +376,13 @@ namespace Content.Client.Lobby
         private void UpdateLobbyBackground()
         {
             if (_gameTicker.LobbyBackground != null)
-                Lobby!.Background.SetRSI(_resourceCache.GetResource<RSIResource>(_gameTicker.LobbyBackground).RSI);
+            {
+                Lobby!.Background.Texture = _resourceCache.GetResource<TextureResource>(_gameTicker.LobbyBackground );
+            }
+            else
+            {
+                Lobby!.Background.Texture = null;
+            }
 
         }
 
@@ -398,22 +395,5 @@ namespace Content.Client.Lobby
 
             _consoleHost.ExecuteCommand($"toggleready {newReady}");
         }
-
-        // FS start
-        private void MakeButtonReady(LobbyTextButton button)
-        {
-            button.ButtonText = Loc.GetString("lobby-state-ready-button-ready-up-state");
-        }
-
-        private void MakeButtonUnReady(LobbyTextButton button)
-        {
-            button.ButtonText = Loc.GetString("lobby-state-player-status-not-ready");
-        }
-
-        private void MakeButtonJoinGame(LobbyTextButton button)
-        {
-            button.ButtonText = Loc.GetString("lobby-state-ready-button-join-state");
-        }
-        // FS end
     }
 }

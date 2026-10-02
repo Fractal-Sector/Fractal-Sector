@@ -1,16 +1,10 @@
-using System.Diagnostics.CodeAnalysis;
 using System.Numerics;
 using Content.Shared.Chat;
-using Robust.Client.Graphics;
-using Robust.Client.ResourceManagement;
-using Robust.Client.UserInterface.Controls;
-using Robust.Shared.Utility;
 
 namespace Content.Client.UserInterface.Systems.Chat.Controls;
 
 public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup>
 {
-    [Dependency] private readonly IResourceCache _resourceCache = default!;
     public event Action<ChatSelectChannel>? OnChannelSelect;
 
     public ChatSelectChannel SelectedChannel { get; private set; }
@@ -19,9 +13,7 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
 
     public ChannelSelectorButton()
     {
-        IoCManager.InjectDependencies(this);
         Name = "ChannelSelector";
-        StyleBoxOverride = new StyleBoxEmpty();
 
         Popup.Selected += OnChannelSelected;
 
@@ -78,10 +70,7 @@ public sealed class ChannelSelectorButton : ChatPopupButton<ChannelSelectorPopup
 
     public void UpdateChannelSelectButton(ChatSelectChannel channel, Shared.Radio.RadioChannelPrototype? radio)
     {
-        // WWDP EDIT START
-        var text = radio != null ? Loc.GetString(radio.Name) : ChannelSelectorName(channel);
-        Text = $"[{text}]";
+        Text = radio != null ? Loc.GetString(radio.Name) : ChannelSelectorName(channel);
         Modulate = radio?.Color ?? ChannelSelectColor(channel);
-        // WWDP EDIT END
     }
 }

@@ -24,8 +24,7 @@ namespace Content.Client.Info
         }
         public void SetInfoBlob(string markup)
         {
-            var message = FormattedMessage.FromMarkup("[font=\"Bedstead\" size=12][color=#2f2f2f]" + markup + "[/color][/font]"); // WWDP EDIT
-            _richTextLabel.SetMessage(message);
+            _richTextLabel.SetMessage(FormattedMessage.FromMarkupOrThrow(markup), tagsAllowed: null);
         }
     }
 }

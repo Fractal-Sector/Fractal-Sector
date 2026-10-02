@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Content.Client.IoC;
 using Content.Client.Parallax.Managers;
-using Content.Client.Stylesheets;
 using Content.IntegrationTests.Tests.Destructible;
 using Content.IntegrationTests.Tests.DeviceNetwork;
 using Content.Server.GameTicking;
@@ -13,7 +12,6 @@ using Robust.Shared.GameObjects;
 using Robust.Shared.IoC;
 using Robust.Shared.Log;
 using Robust.Shared.Network;
-using Robust.Shared.Prototypes;
 using Robust.UnitTesting;
 
 namespace Content.IntegrationTests.Pair;
@@ -99,16 +97,8 @@ public sealed partial class TestPair : RobustIntegrationTest.TestPair
         {
             IoCManager.Resolve<IModLoader>().SetModuleBaseCallbacks(new ClientModuleTestingCallbacks
             {
-                ClientBeforeIoC = () =>
-                {
-                    IoCManager.Register<IParallaxManager, DummyParallaxManager>(true);
-                    IoCManager.Register<IStylesheetManager, DummyStylesheetManager>(true);
-                }
+                ClientBeforeIoC = () => IoCManager.Register<IParallaxManager, DummyParallaxManager>(true)
             });
-
-            var prototypes = IoCManager.Resolve<IPrototypeManager>();
-            prototypes.RegisterIgnore("styleSheet");
-            prototypes.RegisterIgnore("dynamicValue");
         };
         return opts;
     }
