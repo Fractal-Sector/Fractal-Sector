@@ -1,0 +1,15 @@
+- type: latheRecipePack
+  id: CSEdisonEngineeringMachineBoardsStatic
+  recipes:
+  - EmitterCircuitboard
+
+- type: latheRecipePack
+  id: CSEdisionEngineeringThrusterPack
+  recipes:
+  - SmallThrusterMachineCircuitboard
+  - ThrusterMachineCircuitboard
+
+- type: latheRecipePack
+  id: CSEdisionEngineeringMachineMiscPack
+  recipes:
+  - PowerCellHigh

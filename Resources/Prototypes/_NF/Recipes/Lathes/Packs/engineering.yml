@@ -48,6 +48,7 @@
   - PortableScrubberMachineCircuitBoard
   - ThermomachineFreezerMachineCircuitBoard
   - CondenserMachineCircuitBoard
+  - PowerComputerCircuitboard # CS
 
 - type: latheRecipePack
   id: NFEngineeringMaterialsStatic
